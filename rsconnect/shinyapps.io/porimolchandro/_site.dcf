@@ -1,0 +1,10 @@
+name: _site
+title:
+username: porimolchandro
+account: porimolchandro
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11040221
+bundleId: 8186166
+url: https://porimolchandro.shinyapps.io/_site/
+version: 1
