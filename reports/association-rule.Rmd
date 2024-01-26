@@ -1,0 +1,10 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1st Year Master's Student of Data Science and Business Analytics \
+Faculty of Economic Sciences, University of Warsaw
+
+## Association Rule
+
+Work in progress.....

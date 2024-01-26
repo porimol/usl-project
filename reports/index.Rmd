@@ -1,0 +1,22 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Source Code Repository
+Github Link   : [https://github.com/porimol/usl-project](https://github.com/porimol/usl-project)
+
+
+## Clustering Project
+Shinyapps     : [KMeans Clustering](kmeans-clustering.Rmd) \
+Github Link   : [https://github.com/porimol/usl-project/blob/main/kmeans-clustering.ipynb](https://github.com/porimol/usl-project/blob/main/kmeans-clustering.ipynb)
+
+
+## Dimensionality Reduction
+Shinyapps     : [Dimensionality Reduction](dimensionality-reduction.Rmd) \
+Github Link   : [https://github.com/porimol/usl-project/blob/main/dimensionality-reduction.ipynb](https://github.com/porimol/usl-project/blob/main/dimensionality-reduction.ipynb)
+
+
+## Association Rules
+Shinyapps     : [Association Rulesn](association-rules.Rmd) \
+Github Link   : [https://github.com/porimol/usl-project/blob/main/association-reduction.ipynb](https://github.com/porimol/usl-project/blob/main/association-reduction.ipynb)
+
