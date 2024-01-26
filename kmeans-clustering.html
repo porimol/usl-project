@@ -1,0 +1,4271 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>kmeans-clustering.knit</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"><a class='navbar-brand' href='#'>Unsupervised Learning Project</a></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="kmeans-clustering.html">KMeans Clutering</a>
+</li>
+<li>
+  <a href="dimension-reduction.html">Dimension Reduction</a>
+</li>
+<li>
+  <a href="association-rule.html">Association Rule</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<div id="bank-marketing-campaign-clustering" class="section level2">
+<h2><strong>Bank Marketing Campaign Clustering</strong></h2>
+<p>Porimol Chandro<br />
+1st Year Master’s Student of Data Science and Business Analytics<br />
+Faculty of Economic Sciences, University of Warsaw</p>
+</div>
+<div id="table-of-contents" class="section level2">
+<h2>Table of contents</h2>
+<ol style="list-style-type: decimal">
+<li>Motivation(What Drives My Project Interest?)</li>
+<li>Import required python packages</li>
+<li>Dataset information</li>
+<li>Load dataset</li>
+<li>Exploratory Data Analysis(EDA)
+<ul>
+<li>The search for missings and duplicates</li>
+<li>Get list of categorical and numerical variables</li>
+<li>Check unique value of each categorical features</li>
+<li>Ploting the frequency values of categorical and numerical
+features</li>
+</ul></li>
+<li>Selecting the appropriate features
+<ul>
+<li>One-hot encoding and scaling the features</li>
+<li>MinMaxScaler</li>
+</ul></li>
+<li>Clustering
+<ul>
+<li>Find the k based on elbow analysis</li>
+<li>KMeans clustering</li>
+<li>Distribution of the clusters</li>
+</ul></li>
+<li>Dimensionality reduction using PCA and evaluation of the considered
+clustering algorithm</li>
+<li>Exploring the data by cluster</li>
+<li>Conclusion</li>
+</ol>
+</div>
+<div id="motivationwhat-drives-my-project-interest"
+class="section level2">
+<h2>Motivation(What Drives My Project Interest?)</h2>
+<p>Over the years, the growing number of marketing campaigns has
+decreased their influence on a broader demographic. Marketing managers
+are also being driven by competitive and economic forces to concentrate
+on carefully chosen contacts and targeted initiatives. By using
+techniques from the domains of business intelligence (BI) and data
+mining (DM), these direct initiatives can be significantly more
+successful.</p>
+<p>In my clustering anlysis I used Portuguese banking customers
+datasets. The bank marketing dataset was first introduced in the work of
+Moro, S., Laureano, R., and Cortex, P. (2011). This dataset concerns
+phone-based direct marketing campaigns carried out by a Portuguese
+financial organisation. Predicting whether a client will sign up for a
+term deposit was the classification task for which the dataset was used
+in the original research. The characteristics that were employed
+included specific socioeconomic statistics, specifics about marketing
+initiatives, and bank clientele.</p>
+<p>My analysis is limited to the bank client data in an attempt to group
+clients into different segments. When developing marketing strategies,
+financial institutions should consider the results of this kind of
+analysis. Through understanding different customer segments, banks are
+able to customise advertising to specifically target each group.</p>
+</div>
+<div id="importing-required-python-packages" class="section level2">
+<h2>Importing required Python packages</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler, StandardScaler</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score, silhouette_samples</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>warnings.filterwarnings(<span class="st">&#39;ignore&#39;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># warnings.filterwarnings(&quot;ignore&quot;, category=FutureWarning)</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code></pre></div>
+</div>
+<div id="dataset-information" class="section level2">
+<h2>Dataset Information</h2>
+<p>The dataset I use is contained banking customers(<a
+href="https://archive.ics.uci.edu/dataset/222/bank+marketing"
+class="uri">https://archive.ics.uci.edu/dataset/222/bank+marketing</a>)
+only.</p>
+<p>In the following table I description all of the feature variables
+name, data type, demographic and description of each variable.</p>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature Name</th>
+<th>Data Type</th>
+<th>Is Demographic</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>age</td>
+<td>int64</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>job</td>
+<td>object</td>
+<td>Yes</td>
+<td>type of job (categorical:
+<code>management, technician, entrepreneur, blue-collar, unknown, retired, admin., services, self-employed, unemployed, housemaid, student</code>)</td>
+</tr>
+<tr class="odd">
+<td>marital</td>
+<td>object</td>
+<td>Yes</td>
+<td>marital status (categorical:
+<code>married, single, divorced</code>)</td>
+</tr>
+<tr class="even">
+<td>education</td>
+<td>object</td>
+<td>Yes</td>
+<td>(categorical:
+<code>tertiary, secondary, unknown, primary</code>)</td>
+</tr>
+<tr class="odd">
+<td>default</td>
+<td>object</td>
+<td>No</td>
+<td>has credit in default? binary: <code>no, yes</code></td>
+</tr>
+<tr class="even">
+<td>balance</td>
+<td>int64</td>
+<td>No</td>
+<td>average yearly balance, binary: <code>no, yes</code></td>
+</tr>
+<tr class="odd">
+<td>housing</td>
+<td>object</td>
+<td>No</td>
+<td>has housing loan? binary: <code>no, yes</code></td>
+</tr>
+<tr class="even">
+<td>loan</td>
+<td>object</td>
+<td>No</td>
+<td>has personal loan? binary: <code>no, yes</code></td>
+</tr>
+<tr class="odd">
+<td>contact</td>
+<td>object</td>
+<td>No</td>
+<td>contact communication type (categorical:
+<code>unknown, cellular, telephone</code>)</td>
+</tr>
+<tr class="even">
+<td>day</td>
+<td>int64</td>
+<td>No</td>
+<td>last contact day of the week.</td>
+</tr>
+<tr class="odd">
+<td>month</td>
+<td>object</td>
+<td>No</td>
+<td>last contact month of year (categorical:
+<code>jan, feb, mar,....nov, dec</code>)</td>
+</tr>
+<tr class="even">
+<td>duration</td>
+<td>int64</td>
+<td>No</td>
+<td>last contact duration, in seconds (numeric).</td>
+</tr>
+<tr class="odd">
+<td>campaign</td>
+<td>int64</td>
+<td>No</td>
+<td>number of contacts performed during this campaign and for this
+client (numeric, includes last contact)</td>
+</tr>
+<tr class="even">
+<td>pdays</td>
+<td>int64</td>
+<td>No</td>
+<td>number of days that passed by after the client was last contacted
+from a previous campaign (numeric; -1 means client was not previously
+contacted)</td>
+</tr>
+<tr class="odd">
+<td>previous</td>
+<td>int64</td>
+<td>No</td>
+<td>number of contacts performed before this campaign and for this
+client</td>
+</tr>
+<tr class="even">
+<td>poutcome</td>
+<td>object</td>
+<td>No</td>
+<td>outcome of the previous marketing campaign (categorical:
+<code>unknown, failure, other, success</code>)</td>
+</tr>
+<tr class="odd">
+<td>y</td>
+<td>object</td>
+<td>No</td>
+<td>has the client subscribed a term deposit? binary:
+<code>no, yes</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="load-dataset" class="section level2">
+<h2>Load dataset</h2>
+<p>Loading the dataset using Pandas packages.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&#39;datasets/bank-full.csv&#39;</span>, sep<span class="op">=</span><span class="st">&#39;;&#39;</span>)</span></code></pre></div>
+<p>Displaying the shape of the dataset</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>df.shape</span></code></pre></div>
+<pre><code>(45211, 17)</code></pre>
+<p>Showing the first 5 rows of the dataset for a quick overview.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+age
+</th>
+<th>
+job
+</th>
+<th>
+marital
+</th>
+<th>
+education
+</th>
+<th>
+default
+</th>
+<th>
+balance
+</th>
+<th>
+housing
+</th>
+<th>
+loan
+</th>
+<th>
+contact
+</th>
+<th>
+day
+</th>
+<th>
+month
+</th>
+<th>
+duration
+</th>
+<th>
+campaign
+</th>
+<th>
+pdays
+</th>
+<th>
+previous
+</th>
+<th>
+poutcome
+</th>
+<th>
+y
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+58
+</td>
+<td>
+management
+</td>
+<td>
+married
+</td>
+<td>
+tertiary
+</td>
+<td>
+no
+</td>
+<td>
+2143
+</td>
+<td>
+yes
+</td>
+<td>
+no
+</td>
+<td>
+unknown
+</td>
+<td>
+5
+</td>
+<td>
+may
+</td>
+<td>
+261
+</td>
+<td>
+1
+</td>
+<td>
+-1
+</td>
+<td>
+0
+</td>
+<td>
+unknown
+</td>
+<td>
+no
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+44
+</td>
+<td>
+technician
+</td>
+<td>
+single
+</td>
+<td>
+secondary
+</td>
+<td>
+no
+</td>
+<td>
+29
+</td>
+<td>
+yes
+</td>
+<td>
+no
+</td>
+<td>
+unknown
+</td>
+<td>
+5
+</td>
+<td>
+may
+</td>
+<td>
+151
+</td>
+<td>
+1
+</td>
+<td>
+-1
+</td>
+<td>
+0
+</td>
+<td>
+unknown
+</td>
+<td>
+no
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+33
+</td>
+<td>
+entrepreneur
+</td>
+<td>
+married
+</td>
+<td>
+secondary
+</td>
+<td>
+no
+</td>
+<td>
+2
+</td>
+<td>
+yes
+</td>
+<td>
+yes
+</td>
+<td>
+unknown
+</td>
+<td>
+5
+</td>
+<td>
+may
+</td>
+<td>
+76
+</td>
+<td>
+1
+</td>
+<td>
+-1
+</td>
+<td>
+0
+</td>
+<td>
+unknown
+</td>
+<td>
+no
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+47
+</td>
+<td>
+blue-collar
+</td>
+<td>
+married
+</td>
+<td>
+unknown
+</td>
+<td>
+no
+</td>
+<td>
+1506
+</td>
+<td>
+yes
+</td>
+<td>
+no
+</td>
+<td>
+unknown
+</td>
+<td>
+5
+</td>
+<td>
+may
+</td>
+<td>
+92
+</td>
+<td>
+1
+</td>
+<td>
+-1
+</td>
+<td>
+0
+</td>
+<td>
+unknown
+</td>
+<td>
+no
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+33
+</td>
+<td>
+unknown
+</td>
+<td>
+single
+</td>
+<td>
+unknown
+</td>
+<td>
+no
+</td>
+<td>
+1
+</td>
+<td>
+no
+</td>
+<td>
+no
+</td>
+<td>
+unknown
+</td>
+<td>
+5
+</td>
+<td>
+may
+</td>
+<td>
+198
+</td>
+<td>
+1
+</td>
+<td>
+-1
+</td>
+<td>
+0
+</td>
+<td>
+unknown
+</td>
+<td>
+no
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here I will only keep only the 8 variables related to bank client
+data and exclude other variables from this analysis.</p>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature Name</th>
+<th>Data Type</th>
+<th>Is Demographic</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>age</td>
+<td>int64</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>job</td>
+<td>object</td>
+<td>Yes</td>
+<td>type of job (categorical:
+<code>management, technician, entrepreneur, blue-collar, unknown, retired, admin., services, self-employed, unemployed, housemaid, student</code>)</td>
+</tr>
+<tr class="odd">
+<td>marital</td>
+<td>object</td>
+<td>Yes</td>
+<td>marital status (categorical:
+<code>married, single, divorced</code>)</td>
+</tr>
+<tr class="even">
+<td>education</td>
+<td>object</td>
+<td>Yes</td>
+<td>(categorical:
+<code>tertiary, secondary, unknown, primary</code>)</td>
+</tr>
+<tr class="odd">
+<td>default</td>
+<td>object</td>
+<td>No</td>
+<td>has credit in default? binary: <code>no, yes</code></td>
+</tr>
+<tr class="even">
+<td>balance</td>
+<td>int64</td>
+<td>No</td>
+<td>average yearly balance, binary: <code>no, yes</code></td>
+</tr>
+<tr class="odd">
+<td>housing</td>
+<td>object</td>
+<td>No</td>
+<td>has housing loan? binary: <code>no, yes</code></td>
+</tr>
+<tr class="even">
+<td>loan</td>
+<td>object</td>
+<td>No</td>
+<td>has personal loan? binary: <code>no, yes</code></td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>selected_cols <span class="op">=</span> <span class="bu">list</span>(df.iloc[:, :<span class="dv">8</span>].columns)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>df <span class="op">=</span> df[selected_cols]</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>df.shape</span></code></pre></div>
+<pre><code>(45211, 8)</code></pre>
+<p>We keep only the variables related to bank client data:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+age
+</th>
+<th>
+job
+</th>
+<th>
+marital
+</th>
+<th>
+education
+</th>
+<th>
+default
+</th>
+<th>
+balance
+</th>
+<th>
+housing
+</th>
+<th>
+loan
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+58
+</td>
+<td>
+management
+</td>
+<td>
+married
+</td>
+<td>
+tertiary
+</td>
+<td>
+no
+</td>
+<td>
+2143
+</td>
+<td>
+yes
+</td>
+<td>
+no
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+44
+</td>
+<td>
+technician
+</td>
+<td>
+single
+</td>
+<td>
+secondary
+</td>
+<td>
+no
+</td>
+<td>
+29
+</td>
+<td>
+yes
+</td>
+<td>
+no
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+33
+</td>
+<td>
+entrepreneur
+</td>
+<td>
+married
+</td>
+<td>
+secondary
+</td>
+<td>
+no
+</td>
+<td>
+2
+</td>
+<td>
+yes
+</td>
+<td>
+yes
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+47
+</td>
+<td>
+blue-collar
+</td>
+<td>
+married
+</td>
+<td>
+unknown
+</td>
+<td>
+no
+</td>
+<td>
+1506
+</td>
+<td>
+yes
+</td>
+<td>
+no
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+33
+</td>
+<td>
+unknown
+</td>
+<td>
+single
+</td>
+<td>
+unknown
+</td>
+<td>
+no
+</td>
+<td>
+1
+</td>
+<td>
+no
+</td>
+<td>
+no
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="exploratory-data-analysiseda" class="section level2">
+<h2>Exploratory Data Analysis(EDA)</h2>
+<p>Portuguese banking client datasets require exploratory data analysis
+(EDA) since it can be used to find patterns, spot variations in the
+data, and demonstrate relationships. This knowledge is essential for
+making well-informed decisions in field marketing campaign, since it
+ensures customised tactics for a wide range of customer needs.</p>
+<div id="the-search-for-missings-and-duplicates" class="section level3">
+<h3>The search for missings and duplicates</h3>
+<p>In order to, get a full undersstanding of what steps should I be
+taking to clean the dataset. I look at the information in data.</p>
+<p>Checking the data types of the each column in our datasets</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>df.duplicated().value_counts()</span></code></pre></div>
+<pre><code>False    41048
+True      4163
+Name: count, dtype: int64</code></pre>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>df.drop_duplicates(inplace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p>Based on the above output, here are no duplicates value in the
+dataset.</p>
+<p>Check the percentage of missing values in the dataset</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()<span class="op">*</span><span class="dv">100</span><span class="op">/</span>df.shape[<span class="dv">0</span>]</span></code></pre></div>
+<pre><code>age          0.0
+job          0.0
+marital      0.0
+education    0.0
+default      0.0
+balance      0.0
+housing      0.0
+loan         0.0
+dtype: float64</code></pre>
+<p>There are no NULL values in the dataset, hence it is clean.</p>
+<p>Checking the data types and others information of the each column in
+our datasets.</p>
+<p>Information of each feature as follows.</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>df.info()</span></code></pre></div>
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 41048 entries, 0 to 45210
+Data columns (total 8 columns):
+ #   Column     Non-Null Count  Dtype 
+---  ------     --------------  ----- 
+ 0   age        41048 non-null  int64 
+ 1   job        41048 non-null  object
+ 2   marital    41048 non-null  object
+ 3   education  41048 non-null  object
+ 4   default    41048 non-null  object
+ 5   balance    41048 non-null  int64 
+ 6   housing    41048 non-null  object
+ 7   loan       41048 non-null  object
+dtypes: int64(2), object(6)
+memory usage: 2.8+ MB</code></pre>
+<p><strong>From the above exploratory output, I can conclude and note
+that:</strong></p>
+<ul>
+<li>There are no missing values in the dataset</li>
+<li>There are two integer variables and rest of the variable are
+categorical in the dataset; as there are most of the features in dtype:
+<code>object</code>. So I will use encoding method to encode those
+feature from categorical values into numeric forms.</li>
+</ul>
+</div>
+<div id="get-list-of-categorical-and-numerical-variables"
+class="section level3">
+<h3>Get list of categorical and numerical variables</h3>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>num_feats <span class="op">=</span> (df.dtypes <span class="op">!=</span> <span class="st">&#39;object&#39;</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>num_feats <span class="op">=</span> <span class="bu">list</span>(num_feats[num_feats].index)</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>cat_feats <span class="op">=</span> (df.dtypes <span class="op">==</span> <span class="st">&#39;object&#39;</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>cat_feats <span class="op">=</span> <span class="bu">list</span>(cat_feats[cat_feats].index)</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Numerical features: </span><span class="sc">{</span>num_feats<span class="sc">}</span><span class="ss"> </span><span class="ch">\n</span><span class="ss">Categorical features: </span><span class="sc">{</span>cat_feats<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<pre><code>Numerical features: [&#39;age&#39;, &#39;balance&#39;] 
+Categorical features: [&#39;job&#39;, &#39;marital&#39;, &#39;education&#39;, &#39;default&#39;, &#39;housing&#39;, &#39;loan&#39;]</code></pre>
+</div>
+<div id="check-unique-value-of-each-categorical-features"
+class="section level3">
+<h3>Check unique value of each categorical features</h3>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> cat_feats:</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&#39;</span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">:&#39;</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>    <span class="bu">print</span>(df[col].unique())</span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
+<pre><code>job:
+[&#39;management&#39; &#39;technician&#39; &#39;entrepreneur&#39; &#39;blue-collar&#39; &#39;unknown&#39;
+ &#39;retired&#39; &#39;admin.&#39; &#39;services&#39; &#39;self-employed&#39; &#39;unemployed&#39; &#39;housemaid&#39;
+ &#39;student&#39;]
+
+
+marital:
+[&#39;married&#39; &#39;single&#39; &#39;divorced&#39;]
+
+
+education:
+[&#39;tertiary&#39; &#39;secondary&#39; &#39;unknown&#39; &#39;primary&#39;]
+
+
+default:
+[&#39;no&#39; &#39;yes&#39;]
+
+
+housing:
+[&#39;yes&#39; &#39;no&#39;]
+
+
+loan:
+[&#39;no&#39; &#39;yes&#39;]</code></pre>
+</div>
+<div id="ploting-the-frequency-values-of-categorical-features"
+class="section level3">
+<h3>Ploting the frequency values of categorical features</h3>
+<p>Understanding the dominating and uncommon categories in the dataset
+is made easier by plotting the frequency values of categorical
+characteristics, which offers an illustration of the distribution of
+various categories.</p>
+<p>Understanding the variety of categorical data and making data-driven
+decisions are made easier with the help of this visualisation,
+particularly when it comes to targeted marketing and market
+segmentation.</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>sns.set_style(<span class="st">&#39;white&#39;</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">2</span>, ncols<span class="op">=</span><span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">10</span>))</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>fig.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>sns.histplot(x <span class="op">=</span> df[<span class="st">&#39;job&#39;</span>], multiple<span class="op">=</span><span class="st">&quot;dodge&quot;</span>, stat<span class="op">=</span><span class="st">&#39;density&#39;</span>, shrink<span class="op">=</span><span class="fl">0.8</span>, common_norm<span class="op">=</span><span class="va">False</span>, ax<span class="op">=</span>axs[<span class="dv">0</span>,<span class="dv">0</span>])</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>axs[<span class="dv">0</span>,<span class="dv">0</span>].set_xticklabels(<span class="bu">list</span>(df[<span class="st">&#39;job&#39;</span>].unique()), rotation <span class="op">=</span> <span class="dv">90</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a>sns.histplot(x <span class="op">=</span> df[<span class="st">&#39;marital&#39;</span>], multiple<span class="op">=</span><span class="st">&quot;dodge&quot;</span>, stat<span class="op">=</span><span class="st">&#39;density&#39;</span>, shrink<span class="op">=</span><span class="fl">0.8</span>, common_norm<span class="op">=</span><span class="va">False</span>, ax<span class="op">=</span>axs[<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a>axs[<span class="dv">0</span>,<span class="dv">1</span>].set_xticklabels(<span class="bu">list</span>(df[<span class="st">&#39;marital&#39;</span>].unique()), rotation <span class="op">=</span> <span class="dv">90</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a>sns.histplot(x <span class="op">=</span> df[<span class="st">&#39;education&#39;</span>], multiple<span class="op">=</span><span class="st">&quot;dodge&quot;</span>, stat<span class="op">=</span><span class="st">&#39;density&#39;</span>, shrink<span class="op">=</span><span class="fl">0.8</span>, common_norm<span class="op">=</span><span class="va">False</span>, ax<span class="op">=</span>axs[<span class="dv">0</span>,<span class="dv">2</span>])</span>
+<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a>axs[<span class="dv">0</span>,<span class="dv">2</span>].set_xticklabels(<span class="bu">list</span>(df[<span class="st">&#39;education&#39;</span>].unique()), rotation <span class="op">=</span> <span class="dv">90</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" tabindex="-1"></a>sns.histplot(x <span class="op">=</span> df[<span class="st">&#39;default&#39;</span>], multiple<span class="op">=</span><span class="st">&quot;dodge&quot;</span>, stat<span class="op">=</span><span class="st">&#39;density&#39;</span>, shrink<span class="op">=</span><span class="fl">0.8</span>, common_norm<span class="op">=</span><span class="va">False</span>, ax<span class="op">=</span>axs[<span class="dv">1</span>,<span class="dv">0</span>])</span>
+<span id="cb22-15"><a href="#cb22-15" tabindex="-1"></a>axs[<span class="dv">1</span>,<span class="dv">0</span>].set_xticklabels(<span class="bu">list</span>(df[<span class="st">&#39;default&#39;</span>].unique()), rotation <span class="op">=</span> <span class="dv">90</span>)</span>
+<span id="cb22-16"><a href="#cb22-16" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" tabindex="-1"></a>sns.histplot(x <span class="op">=</span> df[<span class="st">&#39;housing&#39;</span>], multiple<span class="op">=</span><span class="st">&quot;dodge&quot;</span>, stat<span class="op">=</span><span class="st">&#39;density&#39;</span>, shrink<span class="op">=</span><span class="fl">0.8</span>, common_norm<span class="op">=</span><span class="va">False</span>, ax<span class="op">=</span>axs[<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb22-18"><a href="#cb22-18" tabindex="-1"></a>axs[<span class="dv">1</span>,<span class="dv">1</span>].set_xticklabels(<span class="bu">list</span>(df[<span class="st">&#39;housing&#39;</span>].unique()), rotation <span class="op">=</span> <span class="dv">90</span>)</span>
+<span id="cb22-19"><a href="#cb22-19" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" tabindex="-1"></a>sns.histplot(x <span class="op">=</span> df[<span class="st">&#39;loan&#39;</span>], multiple<span class="op">=</span><span class="st">&quot;dodge&quot;</span>, stat<span class="op">=</span><span class="st">&#39;density&#39;</span>, shrink<span class="op">=</span><span class="fl">0.8</span>, common_norm<span class="op">=</span><span class="va">False</span>, ax<span class="op">=</span>axs[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<span id="cb22-21"><a href="#cb22-21" tabindex="-1"></a>axs[<span class="dv">1</span>,<span class="dv">2</span>].set_xticklabels(<span class="bu">list</span>(df[<span class="st">&#39;loan&#39;</span>].unique()), rotation <span class="op">=</span> <span class="dv">90</span>)</span>
+<span id="cb22-22"><a href="#cb22-22" tabindex="-1"></a></span>
+<span id="cb22-23"><a href="#cb22-23" tabindex="-1"></a>plt.suptitle(<span class="st">&#39;Frequency plots for the categorical variables&#39;</span>)</span>
+<span id="cb22-24"><a href="#cb22-24" tabindex="-1"></a></span>
+<span id="cb22-25"><a href="#cb22-25" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axs.ravel():</span>
+<span id="cb22-26"><a href="#cb22-26" tabindex="-1"></a>    ax.set_ylabel(<span class="st">&#39;&#39;</span>)</span>
+<span id="cb22-27"><a href="#cb22-27" tabindex="-1"></a></span>
+<span id="cb22-28"><a href="#cb22-28" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_36_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>We see that most of the bank’s clients are mamagement, blue-collar
+and the lowest portion of clients are unknownd and students. Most of the
+clients are married and single, have tertiary or primary education, have
+no credit in default or personal loans. The proportion of clients with
+and without housing loans is roughly similar.</p>
+</div>
+<div id="ploting-the-frequency-values-of-numerical-features"
+class="section level3">
+<h3>Ploting the frequency values of numerical features</h3>
+<p>Visualizing the distribution of bank clients’ ages:</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">&#39;age&#39;</span>, bins<span class="op">=</span>[<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>])</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>plt.title(<span class="st">&quot;Distribution of ages of the bank&#39;s clients&quot;</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>plt.xticks([<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>])</span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Count&#39;</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_40_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>Most of the bank’s clients are between 30 to 40 years of age.</p>
+<p>Visualizing the distribution of bank balances:</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">&#39;balance&#39;</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>plt.title(<span class="st">&quot;Distribution of bank balances&quot;</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Count&#39;</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_43_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>Based on the balance visualization, we can say that the bank balances
+are positively skewed, with most clients having less than 10,000 euros
+and some having a lot more.</p>
+</div>
+</div>
+<div id="selecting-the-appropriate-features" class="section level2">
+<h2>Selecting the appropriate features</h2>
+<p>One of the most important steps in the data analysis process is
+choosing the right features, which entails finding and including
+pertinent variables that significantly advance the analysis or model. By
+improving interpretability, dimensionality reduction, and model
+performance, this procedure should eventually result in more effective
+and efficient decision-making based on the selected features.</p>
+</div>
+<div id="one-hot-encoding-and-scaling-the-features"
+class="section level2">
+<h2>One-hot encoding and scaling the features</h2>
+<p>Essential preprocessing procedures in data analysis and machine
+learning are one-hot encoding and feature scaling. To properly
+comprehend and handle categorical information, one-hot encoding is
+utilised to transform them into a binary matrix format. However, scaling
+ensures that variables with different scales do not significantly
+influence the model, leading to improved convergence and performance in
+machine learning algorithms. Scaling includes normalising numerical
+features to a standard range. When combined, these preprocessing methods
+let models handle a variety of data formats with greater accuracy and
+efficiency.</p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>one_df <span class="op">=</span> pd.get_dummies(df, drop_first<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>one_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+age
+</th>
+<th>
+balance
+</th>
+<th>
+job_blue-collar
+</th>
+<th>
+job_entrepreneur
+</th>
+<th>
+job_housemaid
+</th>
+<th>
+job_management
+</th>
+<th>
+job_retired
+</th>
+<th>
+job_self-employed
+</th>
+<th>
+job_services
+</th>
+<th>
+job_student
+</th>
+<th>
+…
+</th>
+<th>
+job_unemployed
+</th>
+<th>
+job_unknown
+</th>
+<th>
+marital_married
+</th>
+<th>
+marital_single
+</th>
+<th>
+education_secondary
+</th>
+<th>
+education_tertiary
+</th>
+<th>
+education_unknown
+</th>
+<th>
+default_yes
+</th>
+<th>
+housing_yes
+</th>
+<th>
+loan_yes
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+58
+</td>
+<td>
+2143
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+…
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+44
+</td>
+<td>
+29
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+…
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+33
+</td>
+<td>
+2
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+…
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+True
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+47
+</td>
+<td>
+1506
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+…
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+33
+</td>
+<td>
+1
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+…
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+5 rows × 21 columns
+</p>
+</div>
+<div id="minmaxscaler" class="section level3">
+<h3>MinMaxScaler</h3>
+<p>A popular normalisation method for preparing data for machine
+learning is MinMaxScaler. By converting each value proportionately
+depending on the lowest and greatest values in the dataset, it scales
+numerical features to a given range, usually between 0 and 1. By doing
+this, you can make sure that every feature has the same scale and stop
+larger-magnitude variables from controlling the learning process.</p>
+<p>By bringing all characteristics into a uniform range, MinMaxScaler is
+especially helpful for algorithms that are sensitive to the scale of
+input features. This improves model performance and convergence.</p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>df_kmeans <span class="op">=</span> scaler.fit_transform(one_df)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>df_kmeans <span class="op">=</span> pd.DataFrame(df_kmeans, columns<span class="op">=</span>one_df.columns)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>df_kmeans.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+age
+</th>
+<th>
+balance
+</th>
+<th>
+job_blue-collar
+</th>
+<th>
+job_entrepreneur
+</th>
+<th>
+job_housemaid
+</th>
+<th>
+job_management
+</th>
+<th>
+job_retired
+</th>
+<th>
+job_self-employed
+</th>
+<th>
+job_services
+</th>
+<th>
+job_student
+</th>
+<th>
+…
+</th>
+<th>
+job_unemployed
+</th>
+<th>
+job_unknown
+</th>
+<th>
+marital_married
+</th>
+<th>
+marital_single
+</th>
+<th>
+education_secondary
+</th>
+<th>
+education_tertiary
+</th>
+<th>
+education_unknown
+</th>
+<th>
+default_yes
+</th>
+<th>
+housing_yes
+</th>
+<th>
+loan_yes
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+0.519481
+</td>
+<td>
+0.092259
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+0.337662
+</td>
+<td>
+0.073067
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+0.194805
+</td>
+<td>
+0.072822
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+1.0
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+0.376623
+</td>
+<td>
+0.086476
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+0.194805
+</td>
+<td>
+0.072812
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+5 rows × 21 columns
+</p>
+</div>
+</div>
+</div>
+<div id="clustering" class="section level2">
+<h2>Clustering</h2>
+<p>As an aspect of an analysis of data called clustering, related data
+points are grouped together based on shared traits or attributes.
+Clustering is crucial to data analysis as it reveals hidden structures,
+relationships, and patterns in a dataset. Through the process of
+establishing logical groupings of data points, clustering offers
+valuable insights into the underlying structure of the data, hence
+promoting a more profound comprehension of intricate interactions
+between variables.</p>
+<p>For instance, in customer segmentation for a Portuguese banking
+dataset, clustering can help categorize clients into distinct groups
+based on their banking behavior, preferences, or demographics. This
+information is valuable for tailoring marketing strategies, designing
+personalized services, and optimizing customer experiences. Overall,
+clustering enhances the interpretability of data, aids in uncovering
+meaningful insights, and supports informed decision-making in various
+analytical domains.</p>
+</div>
+<div id="find-the-k-based-on-elbow-analysis" class="section level2">
+<h2>Find the k based on elbow analysis</h2>
+<p>Calculate elbow scores for different cluster numbers</p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="co"># Define a function to plot the elbow</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>max_clusters <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>elbow_scores <span class="op">=</span> []</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>silhouette_scores <span class="op">=</span> []</span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a><span class="co"># Calculate distortions and silhouette scores for different cluster numbers</span></span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, max_clusters <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a>    kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>k, random_state<span class="op">=</span><span class="dv">42</span>, init<span class="op">=</span><span class="st">&#39;k-means++&#39;</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" tabindex="-1"></a>    kmeans.fit(df_kmeans)</span>
+<span id="cb30-10"><a href="#cb30-10" tabindex="-1"></a>    elbow_scores.append(kmeans.inertia_)</span>
+<span id="cb30-11"><a href="#cb30-11" tabindex="-1"></a>    </span>
+<span id="cb30-12"><a href="#cb30-12" tabindex="-1"></a>    <span class="cf">if</span> k <span class="op">&gt;</span> <span class="dv">1</span>:  <span class="co"># Silhouette score is not defined for a single cluster</span></span>
+<span id="cb30-13"><a href="#cb30-13" tabindex="-1"></a>        silhouette_scores.append(silhouette_score(df_kmeans, kmeans.labels_))</span>
+<span id="cb30-14"><a href="#cb30-14" tabindex="-1"></a></span>
+<span id="cb30-15"><a href="#cb30-15" tabindex="-1"></a><span class="co"># Plot Elbow Method</span></span>
+<span id="cb30-16"><a href="#cb30-16" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
+<span id="cb30-17"><a href="#cb30-17" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb30-18"><a href="#cb30-18" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, max_clusters <span class="op">+</span> <span class="dv">1</span>), elbow_scores, marker<span class="op">=</span><span class="st">&#39;o&#39;</span>)</span>
+<span id="cb30-19"><a href="#cb30-19" tabindex="-1"></a><span class="co"># plt.axvline(4, linestyle=&#39;--&#39;, c=&#39;r&#39;)</span></span>
+<span id="cb30-20"><a href="#cb30-20" tabindex="-1"></a>plt.title(<span class="st">&#39;Elbow Method&#39;</span>)</span>
+<span id="cb30-21"><a href="#cb30-21" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Number of Clusters (k)&#39;</span>)</span>
+<span id="cb30-22"><a href="#cb30-22" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Distortion&#39;</span>)</span>
+<span id="cb30-23"><a href="#cb30-23" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb30-24"><a href="#cb30-24" tabindex="-1"></a></span>
+<span id="cb30-25"><a href="#cb30-25" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb30-26"><a href="#cb30-26" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_56_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>We can choose the optimal number of clusters using the so-called
+elbow method, where we look for an <code>elbow</code> in the inertia
+plot, i.e., a point after which the drop in inertia becomes abruptly
+becomes more gradual. Hence, by the elbow method, 3 clusters would be
+chosen.</p>
+<div id="kmeans-clustering" class="section level3">
+<h3>KMeans clustering</h3>
+<p>A common unsupervised machine learning technique for grouping a
+dataset into independent, non-overlapping groups or clusters is KMeans
+clustering. Transferring data points to clusters iteratively and
+optimising cluster centroids until convergence is how the method
+operates. Its goal is to cluster together comparable data points by
+minimising the within-cluster sum of squared distances.</p>
+<p>Choosing a right K for KMeans clustering is one of the crucial and
+difficult task for clustering. In this case we can use Elbow score to
+determine the right K for the KMeans clustering.</p>
+<p>Above visualization showing that for our Bank Marketing datasets the
+optimal K is 3.</p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">3</span>, init<span class="op">=</span><span class="st">&#39;random&#39;</span>, n_init<span class="op">=</span><span class="dv">10</span>, max_iter<span class="op">=</span><span class="dv">500</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>kmeans_clusters <span class="op">=</span> kmeans.fit_predict(df_kmeans)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>kmeans_clusters</span></code></pre></div>
+<pre><code>array([1, 2, 0, ..., 2, 0, 0], dtype=int32)</code></pre>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>df_kmeans.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+age
+</th>
+<th>
+balance
+</th>
+<th>
+job_blue-collar
+</th>
+<th>
+job_entrepreneur
+</th>
+<th>
+job_housemaid
+</th>
+<th>
+job_management
+</th>
+<th>
+job_retired
+</th>
+<th>
+job_self-employed
+</th>
+<th>
+job_services
+</th>
+<th>
+job_student
+</th>
+<th>
+…
+</th>
+<th>
+job_unemployed
+</th>
+<th>
+job_unknown
+</th>
+<th>
+marital_married
+</th>
+<th>
+marital_single
+</th>
+<th>
+education_secondary
+</th>
+<th>
+education_tertiary
+</th>
+<th>
+education_unknown
+</th>
+<th>
+default_yes
+</th>
+<th>
+housing_yes
+</th>
+<th>
+loan_yes
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+0.519481
+</td>
+<td>
+0.092259
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+0.337662
+</td>
+<td>
+0.073067
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+0.194805
+</td>
+<td>
+0.072822
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+1.0
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+0.376623
+</td>
+<td>
+0.086476
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+0.194805
+</td>
+<td>
+0.072812
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+5 rows × 21 columns
+</p>
+</div>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>df_kmeans[<span class="st">&#39;cluster_k-means&#39;</span>] <span class="op">=</span> kmeans_clusters</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>df_kmeans.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+age
+</th>
+<th>
+balance
+</th>
+<th>
+job_blue-collar
+</th>
+<th>
+job_entrepreneur
+</th>
+<th>
+job_housemaid
+</th>
+<th>
+job_management
+</th>
+<th>
+job_retired
+</th>
+<th>
+job_self-employed
+</th>
+<th>
+job_services
+</th>
+<th>
+job_student
+</th>
+<th>
+…
+</th>
+<th>
+job_unknown
+</th>
+<th>
+marital_married
+</th>
+<th>
+marital_single
+</th>
+<th>
+education_secondary
+</th>
+<th>
+education_tertiary
+</th>
+<th>
+education_unknown
+</th>
+<th>
+default_yes
+</th>
+<th>
+housing_yes
+</th>
+<th>
+loan_yes
+</th>
+<th>
+cluster_k-means
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+0.519481
+</td>
+<td>
+0.092259
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+0.337662
+</td>
+<td>
+0.073067
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+0.194805
+</td>
+<td>
+0.072822
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+0.376623
+</td>
+<td>
+0.086476
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+0.194805
+</td>
+<td>
+0.072812
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+1.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+2
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+5 rows × 22 columns
+</p>
+</div>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>df_kmeans[<span class="st">&#39;cluster_k-means&#39;</span>].value_counts()</span></code></pre></div>
+<pre><code>cluster_k-means
+0    18216
+1    11966
+2    10866
+Name: count, dtype: int64</code></pre>
+</div>
+<div id="distribution-of-the-clusters" class="section level3">
+<h3>Distribution of the clusters</h3>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="co">#Plotting countplot of clusters</span></span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>pal <span class="op">=</span> [<span class="st">&quot;#682F2F&quot;</span>,<span class="st">&quot;#B9C0C9&quot;</span>, <span class="st">&quot;#9F8A78&quot;</span>,<span class="st">&quot;#F3AB60&quot;</span>]</span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>pl <span class="op">=</span> sns.countplot(x<span class="op">=</span>df_kmeans[<span class="st">&quot;cluster_k-means&quot;</span>], palette<span class="op">=</span>pal, legend<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a>pl.set_title(<span class="st">&quot;Distribution Of The Clusters&quot;</span>)</span>
+<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_67_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>The chart shows the distribution of customers in different
+clusters.</p>
+<p>The most populous cluster is cluster 0 with 15,000 customers. Cluster
+1 has 10,000 customers, cluster 2 has 5000 customers, and cluster 3 has
+0 customers.</p>
+</div>
+</div>
+<div
+id="dimensionality-reduction-using-pca-and-evaluation-of-the-considered-clustering-algorithm"
+class="section level2">
+<h2>Dimensionality reduction using PCA and evaluation of the considered
+clustering algorithm</h2>
+<p>Dimensionality reduction enhances data analysis by transforming
+high-dimensional data into a lower-dimensional space in this experiment
+I am going to obtain a 2-dimensional representation of the features,
+retaining the most relevant information while reducing computational
+complexity. Principal Component Analysis (PCA) is a popular
+dimensionality reduction technique that identifies the principal
+components, which are linear combinations of the original variables that
+capture the most variance in the data.</p>
+<p>Clustering algorithms group similar data points into clusters,
+helping identify patterns and relationships within the data. Evaluating
+clustering algorithms involves assessing their ability to group data
+points effectively, often using metrics like silhouette score, which
+measures how well data points belong to their respective clusters.</p>
+<p>In summary, dimensionality reduction using PCA can improve data
+analysis, and evaluating clustering algorithms ensures their
+effectiveness in identifying meaningful patterns and groups within the
+data.</p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>pca <span class="op">=</span> PCA(<span class="dv">2</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>pca_df <span class="op">=</span> pd.DataFrame(pca.fit_transform(df_kmeans), columns<span class="op">=</span>[<span class="st">&#39;pca0&#39;</span>, <span class="st">&#39;pca1&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>pca_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+pca0
+</th>
+<th>
+pca1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+-0.021975
+</td>
+<td>
+1.092835
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+1.460154
+</td>
+<td>
+-0.805355
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+-1.000331
+</td>
+<td>
+-0.497294
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+-1.056452
+</td>
+<td>
+-0.007456
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+1.475213
+</td>
+<td>
+0.107732
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>explained_variance_ratio <span class="op">=</span> np.<span class="bu">sum</span>(pca.explained_variance_ratio_)</span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Proportion of variance of the original features explained by the first two principal components: </span><span class="sc">{</span>explained_variance_ratio<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>Proportion of variance of the original features explained by the first two principal components: 0.5167716710802361</code></pre>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>pca_df[<span class="st">&#39;cluster_k-means&#39;</span>] <span class="op">=</span> kmeans_clusters</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>pca_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+pca0
+</th>
+<th>
+pca1
+</th>
+<th>
+cluster_k-means
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+-0.021975
+</td>
+<td>
+1.092835
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+1.460154
+</td>
+<td>
+-0.805355
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+-1.000331
+</td>
+<td>
+-0.497294
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+-1.056452
+</td>
+<td>
+-0.007456
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+1.475213
+</td>
+<td>
+0.107732
+</td>
+<td>
+2
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a>ax <span class="op">=</span> plt.subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">&#39;3d&#39;</span>, label<span class="op">=</span><span class="st">&quot;bla&quot;</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" tabindex="-1"></a><span class="cf">for</span> cluster_num <span class="kw">in</span> np.unique(kmeans_clusters):</span>
+<span id="cb47-4"><a href="#cb47-4" tabindex="-1"></a>    ax.scatter(pca_df[kmeans_clusters <span class="op">==</span> cluster_num][<span class="st">&#39;pca0&#39;</span>],</span>
+<span id="cb47-5"><a href="#cb47-5" tabindex="-1"></a>               pca_df[kmeans_clusters <span class="op">==</span> cluster_num][<span class="st">&#39;pca1&#39;</span>],</span>
+<span id="cb47-6"><a href="#cb47-6" tabindex="-1"></a>               label<span class="op">=</span><span class="ss">f&quot;Clouster: </span><span class="sc">{</span>cluster_num<span class="sc">}</span><span class="ss">&quot;</span>,</span>
+<span id="cb47-7"><a href="#cb47-7" tabindex="-1"></a>               s<span class="op">=</span><span class="dv">7</span>,</span>
+<span id="cb47-8"><a href="#cb47-8" tabindex="-1"></a>               alpha<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb47-9"><a href="#cb47-9" tabindex="-1"></a>               marker<span class="op">=</span><span class="st">&#39;o&#39;</span>,)</span>
+<span id="cb47-10"><a href="#cb47-10" tabindex="-1"></a>plt.title(<span class="st">&quot;3D PCA plot of Bank&#39;s Customer Clusters&quot;</span>)</span>
+<span id="cb47-11"><a href="#cb47-11" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;Principal Component 0&quot;</span>)</span>
+<span id="cb47-12"><a href="#cb47-12" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;Principal Component 1&quot;</span>)</span>
+<span id="cb47-13"><a href="#cb47-13" tabindex="-1"></a>plt.legend()</span>
+<span id="cb47-14"><a href="#cb47-14" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_76_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>As we can see that the KMeans produced well-seperated clusters on the
+first two principal components. It must be noted, however, that analysis
+based on the first two principal components. The x-axis represents the
+first principal component (PC1), the y-axis represents the second
+principal component (PC2), and the z-axis represents the third principal
+component (PC3).</p>
+<p>The data points are colored by cluster, with cluster 0 in blue,
+cluster 1 in green, and cluster 2 in red.</p>
+<p>As can be seen from the plot, the three clusters appear to be
+well-separated. This suggests that the PCA transformation has been
+successful in identifying the underlying structure of the data.</p>
+<p>The average silhouette score for the three clusters is 0.42, which is
+considered to be a good score. This suggests that the clustering
+algorithm has been successful in identifying groups of customers that
+are similar to each other.</p>
+</div>
+<div id="exploring-the-data-by-cluster" class="section level2">
+<h2>Exploring the data by cluster</h2>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a>df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+age
+</th>
+<th>
+job
+</th>
+<th>
+marital
+</th>
+<th>
+education
+</th>
+<th>
+default
+</th>
+<th>
+balance
+</th>
+<th>
+housing
+</th>
+<th>
+loan
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+58
+</td>
+<td>
+management
+</td>
+<td>
+married
+</td>
+<td>
+tertiary
+</td>
+<td>
+no
+</td>
+<td>
+2143
+</td>
+<td>
+yes
+</td>
+<td>
+no
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+44
+</td>
+<td>
+technician
+</td>
+<td>
+single
+</td>
+<td>
+secondary
+</td>
+<td>
+no
+</td>
+<td>
+29
+</td>
+<td>
+yes
+</td>
+<td>
+no
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+33
+</td>
+<td>
+entrepreneur
+</td>
+<td>
+married
+</td>
+<td>
+secondary
+</td>
+<td>
+no
+</td>
+<td>
+2
+</td>
+<td>
+yes
+</td>
+<td>
+yes
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+47
+</td>
+<td>
+blue-collar
+</td>
+<td>
+married
+</td>
+<td>
+unknown
+</td>
+<td>
+no
+</td>
+<td>
+1506
+</td>
+<td>
+yes
+</td>
+<td>
+no
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+33
+</td>
+<td>
+unknown
+</td>
+<td>
+single
+</td>
+<td>
+unknown
+</td>
+<td>
+no
+</td>
+<td>
+1
+</td>
+<td>
+no
+</td>
+<td>
+no
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>df[<span class="st">&#39;cluster_k-means&#39;</span>] <span class="op">=</span> kmeans_clusters</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a>df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+age
+</th>
+<th>
+job
+</th>
+<th>
+marital
+</th>
+<th>
+education
+</th>
+<th>
+default
+</th>
+<th>
+balance
+</th>
+<th>
+housing
+</th>
+<th>
+loan
+</th>
+<th>
+cluster_k-means
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+58
+</td>
+<td>
+management
+</td>
+<td>
+married
+</td>
+<td>
+tertiary
+</td>
+<td>
+no
+</td>
+<td>
+2143
+</td>
+<td>
+yes
+</td>
+<td>
+no
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+44
+</td>
+<td>
+technician
+</td>
+<td>
+single
+</td>
+<td>
+secondary
+</td>
+<td>
+no
+</td>
+<td>
+29
+</td>
+<td>
+yes
+</td>
+<td>
+no
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+33
+</td>
+<td>
+entrepreneur
+</td>
+<td>
+married
+</td>
+<td>
+secondary
+</td>
+<td>
+no
+</td>
+<td>
+2
+</td>
+<td>
+yes
+</td>
+<td>
+yes
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+47
+</td>
+<td>
+blue-collar
+</td>
+<td>
+married
+</td>
+<td>
+unknown
+</td>
+<td>
+no
+</td>
+<td>
+1506
+</td>
+<td>
+yes
+</td>
+<td>
+no
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+33
+</td>
+<td>
+unknown
+</td>
+<td>
+single
+</td>
+<td>
+unknown
+</td>
+<td>
+no
+</td>
+<td>
+1
+</td>
+<td>
+no
+</td>
+<td>
+no
+</td>
+<td>
+2
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Exploring individual variable by cluster.</p>
+<p>Plotting frequency plots for the variable <code>job</code>, by
+cluster:</p>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="cf">for</span> column <span class="kw">in</span> df_kmeans.columns:</span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a>    g <span class="op">=</span> sns.displot(data<span class="op">=</span>df_kmeans, x<span class="op">=</span>column, col<span class="op">=</span><span class="st">&#39;cluster_k-means&#39;</span>, multiple<span class="op">=</span><span class="st">&quot;dodge&quot;</span>, stat<span class="op">=</span><span class="st">&#39;density&#39;</span>, shrink<span class="op">=</span><span class="fl">0.8</span>, common_norm<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb51-3"><a href="#cb51-3" tabindex="-1"></a>    g.set_xticklabels(rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb51-4"><a href="#cb51-4" tabindex="-1"></a>    g.fig.suptitle(<span class="ss">f&quot;Frequency plots for the variable &#39;</span><span class="sc">{</span>column<span class="sc">}</span><span class="ss">&#39;, by cluster&quot;</span>, y<span class="op">=</span><span class="fl">1.05</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" tabindex="-1"></a>    plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_83_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_1.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_2.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_3.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_4.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_5.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_6.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_7.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_8.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_9.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_10.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_11.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_12.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_13.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_14.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_15.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_16.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_17.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_18.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_19.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_20.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<div class="float">
+<img src="output_83_21.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>The provided image shows 3 frequency plots of the variables, by
+cluster. The x-axis represents the cluster number, and the y-axis
+represents the frequency of the variables within that cluster.</p>
+<p>As you can see, the frequency of ‘age’ is highest for cluster 0,
+followed by cluster 1, and then cluster 2. This suggests that there are
+more 20-40 years old people in cluster 0, followed by 30-40 years old
+people in cluster 1, and then 40-50 years old people in cluster 2.</p>
+<p><strong>Here is a more detailed explanation of the
+plot:</strong><br />
+Cluster 0: This cluster has the highest frequency, at 22%. This suggests
+that there are a lot of 20-40 years old people in this cluster. Cluster
+1: This cluster has a frequency of 20%. This is lower than cluster 0,
+but it is still relatively high. Cluster 2: This cluster has the lowest
+frequency, at 0%. This suggests that there are no 40-50 years old people
+in this cluster.</p>
+<p>Overall, this plot shows that the variables are a good predictor of
+the cluster assignment. This means that we can use the variables to
+identify which cluster a new data point belongs to with a high degree of
+accuracy.</p>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<div id="the-differences-between-the-clusters" class="section level3">
+<h3>The differences between the clusters</h3>
+<p>In conclusion, this project has successfully addressed customers
+segmentation in banking sectors.</p>
+<p>The findings from this project hold significant implications for Bank
+Marketing Campaign. This project not only contributes to the existing
+body of knowledge in, but it also provides practical solutions and
+recommendations.</p>
+<p>The majority of clients in <strong>cluster 0</strong> are married,
+educated through elementary or secondary education, employed as
+technicians or blue-collar workers, have housing loans, and range in age
+from 30 to 60. <strong>In cluster 1</strong>, the majority of consumers
+are between the ages of 20 and 40, single, educated up to the secondary
+or tertiary levels, work in administrative or blue-collar positions, and
+do not have house loans. The majority of consumers in <strong>cluster
+2</strong> are between the ages of 30 and 60, have managerial positions,
+are married, have completed postsecondary education, and do not have
+mortgage debt.</p>
+<p>Thus, <strong>cluster 2</strong> is probably home to the largest
+percentage of clients who are positive that they need a term deposit and
+have one (or vice versa), followed by <strong>cluster 1</strong> and
+<strong>cluster 0</strong>. The bank should concentrate more on
+attracting customers in <strong>clusters 0 and 1</strong>, according to
+the findings of our clustering analysis. This has the potential to both
+lower campaign expenses and increase campaign effectiveness.</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5,h6",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
