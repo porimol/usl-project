@@ -45,6 +45,107 @@
 
 
 
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -334,15 +435,5813 @@ div.tocify {
 </div>
 
 
-<div id="dimension-reduction" class="section level2">
-<h2><strong>Dimension Reduction</strong></h2>
+<div id="dimensionality-reduction-customer-segmentation-with-pca"
+class="section level2">
+<h2><strong>Dimensionality Reduction: Customer Segmentation with
+PCA</strong></h2>
 <p>Porimol Chandro<br />
 1st Year Master’s Student of Data Science and Business Analytics<br />
 Faculty of Economic Sciences, University of Warsaw</p>
 </div>
-<div id="dimension-reduction-1" class="section level2">
-<h2>Dimension Reduction</h2>
-<p>Work in progress…..</p>
+<div id="table-of-contents" class="section level2">
+<h2>Table of contents</h2>
+<ol style="list-style-type: decimal">
+<li>Motivation(What Drives My Project Interest?)</li>
+<li>Import required python packages</li>
+<li>Dataset information</li>
+<li>Load dataset</li>
+<li>Datasets merging</li>
+<li>Data Sampling</li>
+<li>Exploratory Data Analysis(EDA)
+<ul>
+<li>The search for missings and duplicates</li>
+<li>Visualizing missing values</li>
+<li>Ploting the frequency values of categorical and numerical
+features</li>
+<li>Get list of categorical and numerical variables</li>
+</ul></li>
+<li>Selecting the appropriate features
+<ul>
+<li>One-hot encoding and scaling the features</li>
+<li>MinMaxScaler</li>
+</ul></li>
+<li>Clustering
+<ul>
+<li>Find the k based on elbow analysis</li>
+<li>KMeans clustering</li>
+<li>Distribution of the clusters</li>
+</ul></li>
+<li>Dimensionality reduction using PCA</li>
+<li>Exploring the data by cluster</li>
+<li>Conclusion</li>
+</ol>
+</div>
+<div id="motivationwhat-drives-my-project-interest"
+class="section level2">
+<h2>Motivation(What Drives My Project Interest?)</h2>
+<p>Whether we follow well thought-out grocery lists or let impulse
+dictate we eating, our distinct eating customs are what make us who we
+are. The goal of the grocery ordering and delivery software Instacart is
+to make it simple for us to stock our pantry and refrigerator with our
+go-to items and personal favourites whenever we need them. Personal
+shoppers choose products using the Instacart app, review our order, and
+handle both the in-store shopping and delivery.</p>
+<p>Instacart’s primary objective is to simplify the process of
+replenishing our pantry and refrigerator shelves with the items that
+define our preferences and reflect our individual tastes. In a world
+where time is of the essence and efficiency is paramount, Instacart
+steps in as a seamless solution, offering the flexibility to procure our
+go-to essentials and cherished favorites at our convenience.</p>
+<p>This innovative platform operates through a network of personal
+shoppers who navigate the aisles using the Instacart app. These
+dedicated individuals meticulously curate our orders, ensuring that each
+item aligns with our specific choices and requirements. From the initial
+selection process to the final doorstep delivery, Instacart’s personal
+shoppers undertake the responsibility of transforming our digital
+grocery lists into tangible, carefully chosen products.</p>
+</div>
+<div id="importing-required-python-packages" class="section level2">
+<h2>Importing required Python packages</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler, StandardScaler</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score, silhouette_samples</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>warnings.filterwarnings(<span class="st">&#39;ignore&#39;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># warnings.filterwarnings(&quot;ignore&quot;, category=FutureWarning)</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code></pre></div>
+</div>
+<div id="dataset-information" class="section level2">
+<h2>Dataset Information</h2>
+<p>The dataset I use Open Sourced Instacart Orders dataset(<a
+href="https://tech.instacart.com/3-million-instacart-orders-open-sourced-d40d29ead6f2"
+class="uri">https://tech.instacart.com/3-million-instacart-orders-open-sourced-d40d29ead6f2</a>).</p>
+<p>In the following, I description all of the feature variables.</p>
+<p>Orders: - order_id: order identifier - user_id: customer identifier -
+eval_set: which evaluation set this order belongs in (see SET described
+below) - order_number: the order sequence number for this user (1 =
+first, n = nth) - order_dow: the day of the week the order was placed on
+- order_hour_of_day: the hour of the day the order was placed on -
+days_since_prior: days since the last order, capped at 30 (with NAs for
+order_number = 1)</p>
+<p>Products: - product_id: product identifier - product_name: name of
+the product - aisle_id: foreign key - department_id: foreign key</p>
+<p>Aisles: - aisle_id: aisle identifier - aisle: the name of the
+aisle</p>
+<p>Deptartments: - department_id: department identifier - department:
+the name of the department</p>
+<p>Order products: - order_id: foreign key - product_id: foreign key -
+add_to_cart_order: order in which each product was added to cart -
+reordered: 1 if this product has been ordered by this user in the past,
+0 otherwise</p>
+<p>where SET is one of the four following evaluation sets (eval_set in
+orders): - “prior”: orders prior to that users most recent order -
+“train”: training data supplied to participants - “test”: test data
+reserved for machine learning competitions</p>
+</div>
+<div id="load-the-data" class="section level2">
+<h2>Load the data</h2>
+<p>Load all datasets</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>aisles_df <span class="op">=</span> pd.read_csv(<span class="st">&quot;datasets/instacart/aisles.csv&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>departments_df <span class="op">=</span> pd.read_csv(<span class="st">&quot;datasets/instacart/departments.csv&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>order_products_prior_df <span class="op">=</span> pd.read_csv(<span class="st">&quot;datasets/instacart/order_products_prior.csv&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>order_products_train_df <span class="op">=</span> pd.read_csv(<span class="st">&quot;datasets/instacart/order_products_train.csv&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>order_df <span class="op">=</span> pd.read_csv(<span class="st">&quot;datasets/instacart/orders.csv&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>products_df <span class="op">=</span> pd.read_csv(<span class="st">&quot;datasets/instacart/products.csv&quot;</span>)</span></code></pre></div>
+<p>Displaying the shape of the dataset and first 5 rows of each
+dataset</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>aisles_df.shape</span></code></pre></div>
+<pre><code>(134, 2)</code></pre>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>aisles_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+aisle_id
+</th>
+<th>
+aisle
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1
+</td>
+<td>
+prepared soups salads
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+2
+</td>
+<td>
+specialty cheeses
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+3
+</td>
+<td>
+energy granola bars
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+4
+</td>
+<td>
+instant foods
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+5
+</td>
+<td>
+marinades meat preparation
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>departments_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+department_id
+</th>
+<th>
+department
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1
+</td>
+<td>
+frozen
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+2
+</td>
+<td>
+other
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+3
+</td>
+<td>
+bakery
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+4
+</td>
+<td>
+produce
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+5
+</td>
+<td>
+alcohol
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>order_products_prior_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+order_id
+</th>
+<th>
+product_id
+</th>
+<th>
+add_to_cart_order
+</th>
+<th>
+reordered
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+2
+</td>
+<td>
+33120
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+2
+</td>
+<td>
+28985
+</td>
+<td>
+2
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+2
+</td>
+<td>
+9327
+</td>
+<td>
+3
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+2
+</td>
+<td>
+45918
+</td>
+<td>
+4
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+2
+</td>
+<td>
+30035
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>order_products_train_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+order_id
+</th>
+<th>
+product_id
+</th>
+<th>
+add_to_cart_order
+</th>
+<th>
+reordered
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1
+</td>
+<td>
+49302
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+1
+</td>
+<td>
+11109
+</td>
+<td>
+2
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+1
+</td>
+<td>
+10246
+</td>
+<td>
+3
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+1
+</td>
+<td>
+49683
+</td>
+<td>
+4
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+1
+</td>
+<td>
+43633
+</td>
+<td>
+5
+</td>
+<td>
+1
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>order_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+order_id
+</th>
+<th>
+user_id
+</th>
+<th>
+eval_set
+</th>
+<th>
+order_number
+</th>
+<th>
+order_dow
+</th>
+<th>
+order_hour_of_day
+</th>
+<th>
+days_since_prior_order
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+2539329
+</td>
+<td>
+1
+</td>
+<td>
+prior
+</td>
+<td>
+1
+</td>
+<td>
+2
+</td>
+<td>
+8
+</td>
+<td>
+NaN
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+2398795
+</td>
+<td>
+1
+</td>
+<td>
+prior
+</td>
+<td>
+2
+</td>
+<td>
+3
+</td>
+<td>
+7
+</td>
+<td>
+15.0
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+473747
+</td>
+<td>
+1
+</td>
+<td>
+prior
+</td>
+<td>
+3
+</td>
+<td>
+3
+</td>
+<td>
+12
+</td>
+<td>
+21.0
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+2254736
+</td>
+<td>
+1
+</td>
+<td>
+prior
+</td>
+<td>
+4
+</td>
+<td>
+4
+</td>
+<td>
+7
+</td>
+<td>
+29.0
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+431534
+</td>
+<td>
+1
+</td>
+<td>
+prior
+</td>
+<td>
+5
+</td>
+<td>
+4
+</td>
+<td>
+15
+</td>
+<td>
+28.0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>products_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+product_id
+</th>
+<th>
+product_name
+</th>
+<th>
+aisle_id
+</th>
+<th>
+department_id
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1
+</td>
+<td>
+Chocolate Sandwich Cookies
+</td>
+<td>
+61
+</td>
+<td>
+19
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+2
+</td>
+<td>
+All-Seasons Salt
+</td>
+<td>
+104
+</td>
+<td>
+13
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+3
+</td>
+<td>
+Robust Golden Unsweetened Oolong Tea
+</td>
+<td>
+94
+</td>
+<td>
+7
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+4
+</td>
+<td>
+Smart Ones Classic Favorites Mini Rigatoni Wit…
+</td>
+<td>
+38
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+5
+</td>
+<td>
+Green Chile Anytime Sauce
+</td>
+<td>
+5
+</td>
+<td>
+13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="datasets-merging" class="section level2">
+<h2>Datasets merging</h2>
+<p>Merging order_products_prior_df, order_df dataframe into one based on
+order_id</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>df <span class="op">=</span> pd.merge(order_products_prior_df, order_df, on<span class="op">=</span><span class="st">&#39;order_id&#39;</span>, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>df.shape</span></code></pre></div>
+<pre><code>(32434489, 10)</code></pre>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+order_id
+</th>
+<th>
+product_id
+</th>
+<th>
+add_to_cart_order
+</th>
+<th>
+reordered
+</th>
+<th>
+user_id
+</th>
+<th>
+eval_set
+</th>
+<th>
+order_number
+</th>
+<th>
+order_dow
+</th>
+<th>
+order_hour_of_day
+</th>
+<th>
+days_since_prior_order
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+2
+</td>
+<td>
+33120
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+202279
+</td>
+<td>
+prior
+</td>
+<td>
+3
+</td>
+<td>
+5
+</td>
+<td>
+9
+</td>
+<td>
+8.0
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+2
+</td>
+<td>
+28985
+</td>
+<td>
+2
+</td>
+<td>
+1
+</td>
+<td>
+202279
+</td>
+<td>
+prior
+</td>
+<td>
+3
+</td>
+<td>
+5
+</td>
+<td>
+9
+</td>
+<td>
+8.0
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+2
+</td>
+<td>
+9327
+</td>
+<td>
+3
+</td>
+<td>
+0
+</td>
+<td>
+202279
+</td>
+<td>
+prior
+</td>
+<td>
+3
+</td>
+<td>
+5
+</td>
+<td>
+9
+</td>
+<td>
+8.0
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+2
+</td>
+<td>
+45918
+</td>
+<td>
+4
+</td>
+<td>
+1
+</td>
+<td>
+202279
+</td>
+<td>
+prior
+</td>
+<td>
+3
+</td>
+<td>
+5
+</td>
+<td>
+9
+</td>
+<td>
+8.0
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+2
+</td>
+<td>
+30035
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+202279
+</td>
+<td>
+prior
+</td>
+<td>
+3
+</td>
+<td>
+5
+</td>
+<td>
+9
+</td>
+<td>
+8.0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Merging df, products_df dataframe into one based on product_id</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>df <span class="op">=</span> pd.merge(df, products_df, on<span class="op">=</span><span class="st">&#39;product_id&#39;</span>, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>df.shape</span></code></pre></div>
+<pre><code>(32434489, 13)</code></pre>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+order_id
+</th>
+<th>
+product_id
+</th>
+<th>
+add_to_cart_order
+</th>
+<th>
+reordered
+</th>
+<th>
+user_id
+</th>
+<th>
+eval_set
+</th>
+<th>
+order_number
+</th>
+<th>
+order_dow
+</th>
+<th>
+order_hour_of_day
+</th>
+<th>
+days_since_prior_order
+</th>
+<th>
+product_name
+</th>
+<th>
+aisle_id
+</th>
+<th>
+department_id
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+2
+</td>
+<td>
+33120
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+202279
+</td>
+<td>
+prior
+</td>
+<td>
+3
+</td>
+<td>
+5
+</td>
+<td>
+9
+</td>
+<td>
+8.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+86
+</td>
+<td>
+16
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+26
+</td>
+<td>
+33120
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+153404
+</td>
+<td>
+prior
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+16
+</td>
+<td>
+7.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+86
+</td>
+<td>
+16
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+120
+</td>
+<td>
+33120
+</td>
+<td>
+13
+</td>
+<td>
+0
+</td>
+<td>
+23750
+</td>
+<td>
+prior
+</td>
+<td>
+11
+</td>
+<td>
+6
+</td>
+<td>
+8
+</td>
+<td>
+10.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+86
+</td>
+<td>
+16
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+327
+</td>
+<td>
+33120
+</td>
+<td>
+5
+</td>
+<td>
+1
+</td>
+<td>
+58707
+</td>
+<td>
+prior
+</td>
+<td>
+21
+</td>
+<td>
+6
+</td>
+<td>
+9
+</td>
+<td>
+8.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+86
+</td>
+<td>
+16
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+390
+</td>
+<td>
+33120
+</td>
+<td>
+28
+</td>
+<td>
+1
+</td>
+<td>
+166654
+</td>
+<td>
+prior
+</td>
+<td>
+48
+</td>
+<td>
+0
+</td>
+<td>
+12
+</td>
+<td>
+9.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+86
+</td>
+<td>
+16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Merging df, aisles_df and departments_df dataframe into one based on
+aisle_id, department_id</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>df <span class="op">=</span> pd.merge(df, aisles_df, on<span class="op">=</span><span class="st">&#39;aisle_id&#39;</span>, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>df <span class="op">=</span> pd.merge(df, departments_df, on<span class="op">=</span><span class="st">&#39;department_id&#39;</span>, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>df.shape</span></code></pre></div>
+<pre><code>(32434489, 15)</code></pre>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+order_id
+</th>
+<th>
+product_id
+</th>
+<th>
+add_to_cart_order
+</th>
+<th>
+reordered
+</th>
+<th>
+user_id
+</th>
+<th>
+eval_set
+</th>
+<th>
+order_number
+</th>
+<th>
+order_dow
+</th>
+<th>
+order_hour_of_day
+</th>
+<th>
+days_since_prior_order
+</th>
+<th>
+product_name
+</th>
+<th>
+aisle_id
+</th>
+<th>
+department_id
+</th>
+<th>
+aisle
+</th>
+<th>
+department
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+2
+</td>
+<td>
+33120
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+202279
+</td>
+<td>
+prior
+</td>
+<td>
+3
+</td>
+<td>
+5
+</td>
+<td>
+9
+</td>
+<td>
+8.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+86
+</td>
+<td>
+16
+</td>
+<td>
+eggs
+</td>
+<td>
+dairy eggs
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+26
+</td>
+<td>
+33120
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+153404
+</td>
+<td>
+prior
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+16
+</td>
+<td>
+7.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+86
+</td>
+<td>
+16
+</td>
+<td>
+eggs
+</td>
+<td>
+dairy eggs
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+120
+</td>
+<td>
+33120
+</td>
+<td>
+13
+</td>
+<td>
+0
+</td>
+<td>
+23750
+</td>
+<td>
+prior
+</td>
+<td>
+11
+</td>
+<td>
+6
+</td>
+<td>
+8
+</td>
+<td>
+10.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+86
+</td>
+<td>
+16
+</td>
+<td>
+eggs
+</td>
+<td>
+dairy eggs
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+327
+</td>
+<td>
+33120
+</td>
+<td>
+5
+</td>
+<td>
+1
+</td>
+<td>
+58707
+</td>
+<td>
+prior
+</td>
+<td>
+21
+</td>
+<td>
+6
+</td>
+<td>
+9
+</td>
+<td>
+8.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+86
+</td>
+<td>
+16
+</td>
+<td>
+eggs
+</td>
+<td>
+dairy eggs
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+390
+</td>
+<td>
+33120
+</td>
+<td>
+28
+</td>
+<td>
+1
+</td>
+<td>
+166654
+</td>
+<td>
+prior
+</td>
+<td>
+48
+</td>
+<td>
+0
+</td>
+<td>
+12
+</td>
+<td>
+9.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+86
+</td>
+<td>
+16
+</td>
+<td>
+eggs
+</td>
+<td>
+dairy eggs
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Dropping un-used variables</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>df <span class="op">=</span> df.drop([<span class="st">&#39;user_id&#39;</span>, <span class="st">&#39;order_id&#39;</span>, <span class="st">&#39;product_id&#39;</span>, <span class="st">&#39;aisle_id&#39;</span>, <span class="st">&#39;department_id&#39;</span>, <span class="st">&#39;eval_set&#39;</span>], axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>df.shape</span></code></pre></div>
+<pre><code>(32434489, 9)</code></pre>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+add_to_cart_order
+</th>
+<th>
+reordered
+</th>
+<th>
+order_number
+</th>
+<th>
+order_dow
+</th>
+<th>
+order_hour_of_day
+</th>
+<th>
+days_since_prior_order
+</th>
+<th>
+product_name
+</th>
+<th>
+aisle
+</th>
+<th>
+department
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+3
+</td>
+<td>
+5
+</td>
+<td>
+9
+</td>
+<td>
+8.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+eggs
+</td>
+<td>
+dairy eggs
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+5
+</td>
+<td>
+0
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+<td>
+16
+</td>
+<td>
+7.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+eggs
+</td>
+<td>
+dairy eggs
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+13
+</td>
+<td>
+0
+</td>
+<td>
+11
+</td>
+<td>
+6
+</td>
+<td>
+8
+</td>
+<td>
+10.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+eggs
+</td>
+<td>
+dairy eggs
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+5
+</td>
+<td>
+1
+</td>
+<td>
+21
+</td>
+<td>
+6
+</td>
+<td>
+9
+</td>
+<td>
+8.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+eggs
+</td>
+<td>
+dairy eggs
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+28
+</td>
+<td>
+1
+</td>
+<td>
+48
+</td>
+<td>
+0
+</td>
+<td>
+12
+</td>
+<td>
+9.0
+</td>
+<td>
+Organic Egg Whites
+</td>
+<td>
+eggs
+</td>
+<td>
+dairy eggs
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="data-sampling" class="section level2">
+<h2>Data Sampling</h2>
+<p>We have over 3 milliones of observation which is huge and for the
+analysis and I create a sample dataset.</p>
+<blockquote>
+<p>Note: My laptop hardwar wasn’t good enough to handle this large
+amount datasets.</p>
+</blockquote>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>df <span class="op">=</span> df.sample(frac<span class="op">=</span><span class="fl">0.003</span>, random_state<span class="op">=</span><span class="dv">46</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>df.shape</span></code></pre></div>
+<pre><code>(97303, 9)</code></pre>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+add_to_cart_order
+</th>
+<th>
+reordered
+</th>
+<th>
+order_number
+</th>
+<th>
+order_dow
+</th>
+<th>
+order_hour_of_day
+</th>
+<th>
+days_since_prior_order
+</th>
+<th>
+product_name
+</th>
+<th>
+aisle
+</th>
+<th>
+department
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+13526759
+</th>
+<td>
+2
+</td>
+<td>
+1
+</td>
+<td>
+9
+</td>
+<td>
+1
+</td>
+<td>
+9
+</td>
+<td>
+6.0
+</td>
+<td>
+Organic Granny Smith Apple
+</td>
+<td>
+fresh fruits
+</td>
+<td>
+produce
+</td>
+</tr>
+<tr>
+<th>
+399185
+</th>
+<td>
+8
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td>
+3
+</td>
+<td>
+16
+</td>
+<td>
+9.0
+</td>
+<td>
+Hard-Boiled Eggs
+</td>
+<td>
+eggs
+</td>
+<td>
+dairy eggs
+</td>
+</tr>
+<tr>
+<th>
+12002672
+</th>
+<td>
+5
+</td>
+<td>
+1
+</td>
+<td>
+55
+</td>
+<td>
+4
+</td>
+<td>
+10
+</td>
+<td>
+3.0
+</td>
+<td>
+Organic Strawberries
+</td>
+<td>
+fresh fruits
+</td>
+<td>
+produce
+</td>
+</tr>
+<tr>
+<th>
+3486157
+</th>
+<td>
+5
+</td>
+<td>
+1
+</td>
+<td>
+21
+</td>
+<td>
+6
+</td>
+<td>
+8
+</td>
+<td>
+11.0
+</td>
+<td>
+Feta Cheese Crumbles
+</td>
+<td>
+packaged cheese
+</td>
+<td>
+dairy eggs
+</td>
+</tr>
+<tr>
+<th>
+4770806
+</th>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+5
+</td>
+<td>
+1
+</td>
+<td>
+16
+</td>
+<td>
+7.0
+</td>
+<td>
+Organic Sour Cream
+</td>
+<td>
+other creams cheeses
+</td>
+<td>
+dairy eggs
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="exploratory-data-analysiseda" class="section level2">
+<h2>Exploratory Data Analysis(EDA)</h2>
+<p>Descriptive statistics about the dataset</p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>df.describe()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+add_to_cart_order
+</th>
+<th>
+reordered
+</th>
+<th>
+order_number
+</th>
+<th>
+order_dow
+</th>
+<th>
+order_hour_of_day
+</th>
+<th>
+days_since_prior_order
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+count
+</th>
+<td>
+97303.000000
+</td>
+<td>
+97303.000000
+</td>
+<td>
+97303.000000
+</td>
+<td>
+97303.000000
+</td>
+<td>
+97303.000000
+</td>
+<td>
+91106.000000
+</td>
+</tr>
+<tr>
+<th>
+mean
+</th>
+<td>
+8.366998
+</td>
+<td>
+0.590105
+</td>
+<td>
+17.157087
+</td>
+<td>
+2.744170
+</td>
+<td>
+13.424273
+</td>
+<td>
+11.075824
+</td>
+</tr>
+<tr>
+<th>
+std
+</th>
+<td>
+7.121863
+</td>
+<td>
+0.491817
+</td>
+<td>
+17.515597
+</td>
+<td>
+2.091391
+</td>
+<td>
+4.239575
+</td>
+<td>
+8.752326
+</td>
+</tr>
+<tr>
+<th>
+min
+</th>
+<td>
+1.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+1.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+</tr>
+<tr>
+<th>
+25%
+</th>
+<td>
+3.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+5.000000
+</td>
+<td>
+1.000000
+</td>
+<td>
+10.000000
+</td>
+<td>
+5.000000
+</td>
+</tr>
+<tr>
+<th>
+50%
+</th>
+<td>
+6.000000
+</td>
+<td>
+1.000000
+</td>
+<td>
+11.000000
+</td>
+<td>
+3.000000
+</td>
+<td>
+13.000000
+</td>
+<td>
+8.000000
+</td>
+</tr>
+<tr>
+<th>
+75%
+</th>
+<td>
+12.000000
+</td>
+<td>
+1.000000
+</td>
+<td>
+24.000000
+</td>
+<td>
+5.000000
+</td>
+<td>
+16.000000
+</td>
+<td>
+15.000000
+</td>
+</tr>
+<tr>
+<th>
+max
+</th>
+<td>
+122.000000
+</td>
+<td>
+1.000000
+</td>
+<td>
+99.000000
+</td>
+<td>
+6.000000
+</td>
+<td>
+23.000000
+</td>
+<td>
+30.000000
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="the-search-for-missings-and-duplicates" class="section level3">
+<h3>The search for missings and duplicates</h3>
+<p>To understand completely the procedures that I ought to follow in
+order to clean the dataset. I examine the data’s details. examining each
+column’s data type in our datasets</p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>df.duplicated().value_counts()</span></code></pre></div>
+<pre><code>False    97284
+True        19
+Name: count, dtype: int64</code></pre>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>df.drop_duplicates(inplace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p>Based on the above output, here are no duplicates value in the
+dataset.</p>
+<p>Check the percentage of missing values in the dataset</p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()<span class="op">*</span><span class="dv">100</span><span class="op">/</span>df.shape[<span class="dv">0</span>]</span></code></pre></div>
+<pre><code>add_to_cart_order         0.000000
+reordered                 0.000000
+order_number              0.000000
+order_dow                 0.000000
+order_hour_of_day         0.000000
+days_since_prior_order    6.354591
+product_name              0.000000
+aisle                     0.000000
+department                0.000000
+dtype: float64</code></pre>
+<p>We can see that in <code>days_since_prior_order</code> column we ahve
+6% NULL values in the dataset, hence it is clean.</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>df.info()</span></code></pre></div>
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 97284 entries, 13526759 to 4739599
+Data columns (total 9 columns):
+ #   Column                  Non-Null Count  Dtype  
+---  ------                  --------------  -----  
+ 0   add_to_cart_order       97284 non-null  int64  
+ 1   reordered               97284 non-null  int64  
+ 2   order_number            97284 non-null  int64  
+ 3   order_dow               97284 non-null  int64  
+ 4   order_hour_of_day       97284 non-null  int64  
+ 5   days_since_prior_order  91102 non-null  float64
+ 6   product_name            97284 non-null  object 
+ 7   aisle                   97284 non-null  object 
+ 8   department              97284 non-null  object 
+dtypes: float64(1), int64(5), object(3)
+memory usage: 7.4+ MB</code></pre>
+</div>
+<div id="visualizing-missing-values" class="section level3">
+<h3>Visualizing missing values</h3>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>sns.heatmap(df.isnull(), cbar<span class="op">=</span><span class="va">False</span>, cmap<span class="op">=</span><span class="st">&#39;viridis&#39;</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>plt.title(<span class="st">&#39;Missing Values Heatmap&#39;</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_47_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>The heatmap shows the percentage of missing values for each feature
+in the dataset. The features are listed on the <code>y-axis</code>, and
+the percentage of missing values is shown on the <code>x-axis</code>.
+The color intensity corresponds to the percentage of missing values,
+with darker colors indicating a higher percentage of missing values.</p>
+<p>Based on the heatmap, it appears that there are a significant number
+of missing values in some features, such as
+<code>add_to_cart_order</code>, <code>reordered</code>,
+<code>days_since_prior_order</code>, and <code>product_name</code>. It
+is important to consider how to handle these missing values before
+proceeding with any analysis of the data.</p>
+<p>Here are some additional observations about the heatmap: - There are
+no missing values in the features order_number, order_dow, and
+order_hour_of_day. - The features with the highest percentage of missing
+values are all categorical features. - There is a large variation in the
+percentage of missing values across different features.</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>df.fillna(df.days_since_prior_order.mean(), inplace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="bu">len</span>(df.aisle.unique()), <span class="bu">len</span>(df.department.unique()), <span class="bu">len</span>(df.product_name.unique())</span></code></pre></div>
+<pre><code>(134, 21, 15912)</code></pre>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>df.aisle.value_counts()</span></code></pre></div>
+<pre><code>aisle
+fresh fruits                  10805
+fresh vegetables              10209
+packaged vegetables fruits     5350
+yogurt                         4446
+packaged cheese                2907
+                              ...  
+baby bath body care              26
+baby accessories                 26
+kitchen supplies                 20
+frozen juice                     16
+beauty                           15
+Name: count, Length: 134, dtype: int64</code></pre>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>df.department.value_counts()</span></code></pre></div>
+<pre><code>department
+produce            28351
+dairy eggs         16159
+snacks              8641
+beverages           8147
+frozen              6822
+pantry              5594
+bakery              3521
+canned goods        3178
+deli                3159
+dry goods pasta     2536
+household           2258
+breakfast           2230
+meat seafood        2123
+personal care       1335
+babies              1253
+international        774
+alcohol              492
+pets                 298
+missing              201
+bulk                 107
+other                105
+Name: count, dtype: int64</code></pre>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>df.product_name.value_counts()</span></code></pre></div>
+<pre><code>product_name
+Banana                                1422
+Bag of Organic Bananas                1044
+Organic Strawberries                   844
+Organic Baby Spinach                   730
+Organic Hass Avocado                   647
+                                      ... 
+Original Sugar Free Coconut Milk         1
+Organic Pretzel Sticks                   1
+Hot House Seedless Cucumbers             1
+Brown Sugar Cinnamon Roll Wafflers       1
+P3 Turkey Cheese Almonds                 1
+Name: count, Length: 15912, dtype: int64</code></pre>
+</div>
+<div id="ploting-the-frequency-values-of-numerical-features"
+class="section level3">
+<h3>Ploting the frequency values of numerical features</h3>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>df.hist(bins<span class="op">=</span><span class="dv">15</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span>))</span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_55_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>The visualisation displays the dataset’s numerical features’
+frequency values. Using a single order, the frequency values of the
+order number, order hour, and days are plotted in a histogram.</p>
+<p>The feature values are plotted on the <code>x-axis</code>, and the
+number of orders that have each value is plotted on the
+<code>y-axis</code>. An example of this would be the order number
+histogram, which indicates that roughly 60,000 orders have an order
+number of 0 and roughly 50,000 have an order number of 1.</p>
+<p>The order number, order hour, and days since previous order are all
+<code>right-skewed</code>, as can be seen from the histograms. This
+indicates that compared to orders with higher values, there are more
+orders with lower values of these attributes.</p>
+</div>
+<div id="check-unique-value-of-each-categorical-features"
+class="section level3">
+<h3>Check unique value of each categorical features</h3>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a>num_feats <span class="op">=</span> (df.dtypes <span class="op">!=</span> <span class="st">&#39;object&#39;</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a>num_feats <span class="op">=</span> <span class="bu">list</span>(num_feats[num_feats].index)</span>
+<span id="cb50-3"><a href="#cb50-3" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" tabindex="-1"></a>cat_feats <span class="op">=</span> (df.dtypes <span class="op">==</span> <span class="st">&#39;object&#39;</span>)</span>
+<span id="cb50-5"><a href="#cb50-5" tabindex="-1"></a>cat_feats <span class="op">=</span> <span class="bu">list</span>(cat_feats[cat_feats].index)</span>
+<span id="cb50-6"><a href="#cb50-6" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Numerical features: </span><span class="sc">{</span>num_feats<span class="sc">}</span><span class="ss"> </span><span class="ch">\n</span><span class="ss">Categorical features: </span><span class="sc">{</span>cat_feats<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<pre><code>Numerical features: [&#39;add_to_cart_order&#39;, &#39;reordered&#39;, &#39;order_number&#39;, &#39;order_dow&#39;, &#39;order_hour_of_day&#39;, &#39;days_since_prior_order&#39;] 
+Categorical features: [&#39;product_name&#39;, &#39;aisle&#39;, &#39;department&#39;]</code></pre>
+</div>
+<div id="calculating-the-correlation-matrix" class="section level3">
+<h3>Calculating the correlation matrix</h3>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a>cor_matrix <span class="op">=</span> df[num_feats].corr(method<span class="op">=</span><span class="st">&#39;pearson&#39;</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a><span class="co"># Visualizing the correlation matrix</span></span>
+<span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb52-4"><a href="#cb52-4" tabindex="-1"></a>sns.heatmap(cor_matrix, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">&quot;.2f&quot;</span>, cmap<span class="op">=</span><span class="st">&quot;coolwarm&quot;</span>)</span>
+<span id="cb52-5"><a href="#cb52-5" tabindex="-1"></a>plt.title(<span class="st">&quot;Correlation Matrix&quot;</span>)</span>
+<span id="cb52-6"><a href="#cb52-6" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_60_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>The Instacart market basket order variables’ correlation matrix. It
+displays the relationship between every two attributes. The correlation
+coefficient is displayed in the appropriate cell, and the attributes are
+enumerated on the x- and y-axes. The correlation coefficient is a number
+between -1 and 1, where a perfect negative correlation is represented by
+a value of -1, no correlation at all by a value of 1, and a perfect
+positive correlation by a value of 1. Darker colours indicate a stronger
+correlation, and the intensity of the colour reflects the correlation’s
+strength.</p>
+<p>It appears that some of the features have weak positive associations
+with one another based on the heatmap. For instance,
+days_since_prior_order and reordered have a marginally positive
+association (0.12). This indicates that orders with reordered
+items—items that have already been purchased—usually arrive fewer days
+following the initial transaction. Additionally, there is a modest
+positive association (0.04) between days_since_prior_order and
+order_number. As a result, orders with larger order numbers are
+typically placed a shorter amount of time after the last order.</p>
+<p>Nevertheless, the majority of the heatmap’s associations are
+extremely weak or nearly nil. This shows that majority of the features
+in the Instacart market basket order dataset do not have a strong linear
+connection.</p>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a>color <span class="op">=</span> sns.color_palette()</span>
+<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">8</span>))</span>
+<span id="cb53-3"><a href="#cb53-3" tabindex="-1"></a>sns.countplot(x<span class="op">=</span><span class="st">&quot;department&quot;</span>, data<span class="op">=</span>df, color<span class="op">=</span>color[<span class="dv">0</span>])</span>
+<span id="cb53-4"><a href="#cb53-4" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Frequency&#39;</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb53-5"><a href="#cb53-5" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Department name&#39;</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb53-6"><a href="#cb53-6" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="st">&#39;vertical&#39;</span>)</span>
+<span id="cb53-7"><a href="#cb53-7" tabindex="-1"></a>plt.title(<span class="st">&quot;Frequency of order by department&quot;</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb53-8"><a href="#cb53-8" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_62_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>The bar graph showing the frequency of orders by department. The
+departments are listed on the x-axis, and the number of orders placed in
+each department is shown on the y-axis. The bars are colored to
+distinguish between different departments.</p>
+<p>Based on the graph, it appears that the most frequent orders are
+placed in the produce department, followed by dairy and eggs, snacks,
+meat and seafood, and beverages. The least frequent orders are placed in
+the pets, bulk, alcohol, and bakery departments.</p>
+<p>Here are some additional observations about the graph: - There is a
+large difference in the number of orders placed in different
+departments. For example, there are more than twice as many orders
+placed in the produce department as in the dairy and eggs department. -
+The number of orders placed in each department appears to be relatively
+consistent across different departments. There are no departments with a
+very high or very low number of orders compared to the other
+departments.</p>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a>department_df <span class="op">=</span> pd.get_dummies(df[[<span class="st">&#39;department&#39;</span>]], drop_first<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a>department_df.shape</span></code></pre></div>
+<pre><code>(97284, 20)</code></pre>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a>department_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+department_babies
+</th>
+<th>
+department_bakery
+</th>
+<th>
+department_beverages
+</th>
+<th>
+department_breakfast
+</th>
+<th>
+department_bulk
+</th>
+<th>
+department_canned goods
+</th>
+<th>
+department_dairy eggs
+</th>
+<th>
+department_deli
+</th>
+<th>
+department_dry goods pasta
+</th>
+<th>
+department_frozen
+</th>
+<th>
+department_household
+</th>
+<th>
+department_international
+</th>
+<th>
+department_meat seafood
+</th>
+<th>
+department_missing
+</th>
+<th>
+department_other
+</th>
+<th>
+department_pantry
+</th>
+<th>
+department_personal care
+</th>
+<th>
+department_pets
+</th>
+<th>
+department_produce
+</th>
+<th>
+department_snacks
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+13526759
+</th>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+</tr>
+<tr>
+<th>
+399185
+</th>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+</tr>
+<tr>
+<th>
+12002672
+</th>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+</tr>
+<tr>
+<th>
+3486157
+</th>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+</tr>
+<tr>
+<th>
+4770806
+</th>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+True
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+<td>
+False
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a>department_df <span class="op">=</span> department_df.astype(<span class="bu">int</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a>department_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+department_babies
+</th>
+<th>
+department_bakery
+</th>
+<th>
+department_beverages
+</th>
+<th>
+department_breakfast
+</th>
+<th>
+department_bulk
+</th>
+<th>
+department_canned goods
+</th>
+<th>
+department_dairy eggs
+</th>
+<th>
+department_deli
+</th>
+<th>
+department_dry goods pasta
+</th>
+<th>
+department_frozen
+</th>
+<th>
+department_household
+</th>
+<th>
+department_international
+</th>
+<th>
+department_meat seafood
+</th>
+<th>
+department_missing
+</th>
+<th>
+department_other
+</th>
+<th>
+department_pantry
+</th>
+<th>
+department_personal care
+</th>
+<th>
+department_pets
+</th>
+<th>
+department_produce
+</th>
+<th>
+department_snacks
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+13526759
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+399185
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+12002672
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+3486157
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+4770806
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb60"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a>department_df.rename(columns<span class="op">=</span>{key: key.replace(<span class="st">&#39;department_&#39;</span>, <span class="st">&#39;&#39;</span>).replace(<span class="st">&#39; &#39;</span>, <span class="st">&#39;_&#39;</span>) <span class="cf">for</span> key <span class="kw">in</span> department_df.keys()}, inplace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a>cor_matrix <span class="op">=</span> department_df.corr(method<span class="op">=</span><span class="st">&#39;pearson&#39;</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a><span class="co"># Visualizing the correlation matrix</span></span>
+<span id="cb61-3"><a href="#cb61-3" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb61-4"><a href="#cb61-4" tabindex="-1"></a>sns.heatmap(cor_matrix, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">&quot;.2f&quot;</span>, cmap<span class="op">=</span><span class="st">&quot;coolwarm&quot;</span>)</span>
+<span id="cb61-5"><a href="#cb61-5" tabindex="-1"></a>plt.title(<span class="st">&quot;Correlation Matrix&quot;</span>)</span>
+<span id="cb61-6"><a href="#cb61-6" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_70_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>The correlation matrix shows the correlation between each pair of
+features in the Instacart market basket order dataset. The features are
+listed on the x-axis and y-axis, and the correlation coefficient is
+shown in the corresponding cell. The correlation coefficient ranges from
+-1 to 1, where -1 indicates a perfect negative correlation, 0 indicates
+no correlation, and 1 indicates a perfect positive correlation. The
+color intensity corresponds to the strength of the correlation, with
+darker colors indicating a stronger correlation.</p>
+<p>Based on the heatmap, it appears that there are some weak positive
+correlations between some of the features. For example, there is a weak
+positive correlation between reordered and days_since_prior_order
+(0.12). This means that orders that contain previously purchased items
+(reordered items) tend to be placed fewer days after the previous order.
+There is also a weak positive correlation between order_number and
+days_since_prior_order (0.04). This means that orders with higher order
+numbers tend to be placed fewer days after the previous order.</p>
+<p>However, most of the correlations in the heatmap are very weak or
+close to zero. This suggests that there is not a strong linear
+relationship between most of the features in the Instacart market basket
+order dataset.</p>
+<p><strong>Join the department dataframe with the original
+dataframe</strong></p>
+<div class="sourceCode" id="cb62"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a>df <span class="op">=</span> pd.concat([df, department_df], axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a>df.shape</span></code></pre></div>
+<pre><code>(97284, 29)</code></pre>
+<div class="sourceCode" id="cb65"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" tabindex="-1"></a>df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+add_to_cart_order
+</th>
+<th>
+reordered
+</th>
+<th>
+order_number
+</th>
+<th>
+order_dow
+</th>
+<th>
+order_hour_of_day
+</th>
+<th>
+days_since_prior_order
+</th>
+<th>
+product_name
+</th>
+<th>
+aisle
+</th>
+<th>
+department
+</th>
+<th>
+babies
+</th>
+<th>
+…
+</th>
+<th>
+household
+</th>
+<th>
+international
+</th>
+<th>
+meat_seafood
+</th>
+<th>
+missing
+</th>
+<th>
+other
+</th>
+<th>
+pantry
+</th>
+<th>
+personal_care
+</th>
+<th>
+pets
+</th>
+<th>
+produce
+</th>
+<th>
+snacks
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+13526759
+</th>
+<td>
+2
+</td>
+<td>
+1
+</td>
+<td>
+9
+</td>
+<td>
+1
+</td>
+<td>
+9
+</td>
+<td>
+6.0
+</td>
+<td>
+Organic Granny Smith Apple
+</td>
+<td>
+fresh fruits
+</td>
+<td>
+produce
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+399185
+</th>
+<td>
+8
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td>
+3
+</td>
+<td>
+16
+</td>
+<td>
+9.0
+</td>
+<td>
+Hard-Boiled Eggs
+</td>
+<td>
+eggs
+</td>
+<td>
+dairy eggs
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+12002672
+</th>
+<td>
+5
+</td>
+<td>
+1
+</td>
+<td>
+55
+</td>
+<td>
+4
+</td>
+<td>
+10
+</td>
+<td>
+3.0
+</td>
+<td>
+Organic Strawberries
+</td>
+<td>
+fresh fruits
+</td>
+<td>
+produce
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+3486157
+</th>
+<td>
+5
+</td>
+<td>
+1
+</td>
+<td>
+21
+</td>
+<td>
+6
+</td>
+<td>
+8
+</td>
+<td>
+11.0
+</td>
+<td>
+Feta Cheese Crumbles
+</td>
+<td>
+packaged cheese
+</td>
+<td>
+dairy eggs
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+4770806
+</th>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+5
+</td>
+<td>
+1
+</td>
+<td>
+16
+</td>
+<td>
+7.0
+</td>
+<td>
+Organic Sour Cream
+</td>
+<td>
+other creams cheeses
+</td>
+<td>
+dairy eggs
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+5 rows × 29 columns
+</p>
+</div>
+<div class="sourceCode" id="cb66"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" tabindex="-1"></a>df.drop([<span class="st">&#39;product_name&#39;</span>, <span class="st">&#39;aisle&#39;</span>, <span class="st">&#39;department&#39;</span>], axis<span class="op">=</span><span class="dv">1</span>, inplace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a>df.shape</span></code></pre></div>
+<pre><code>(97284, 26)</code></pre>
+<div class="sourceCode" id="cb69"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a>df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+add_to_cart_order
+</th>
+<th>
+reordered
+</th>
+<th>
+order_number
+</th>
+<th>
+order_dow
+</th>
+<th>
+order_hour_of_day
+</th>
+<th>
+days_since_prior_order
+</th>
+<th>
+babies
+</th>
+<th>
+bakery
+</th>
+<th>
+beverages
+</th>
+<th>
+breakfast
+</th>
+<th>
+…
+</th>
+<th>
+household
+</th>
+<th>
+international
+</th>
+<th>
+meat_seafood
+</th>
+<th>
+missing
+</th>
+<th>
+other
+</th>
+<th>
+pantry
+</th>
+<th>
+personal_care
+</th>
+<th>
+pets
+</th>
+<th>
+produce
+</th>
+<th>
+snacks
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+13526759
+</th>
+<td>
+2
+</td>
+<td>
+1
+</td>
+<td>
+9
+</td>
+<td>
+1
+</td>
+<td>
+9
+</td>
+<td>
+6.0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+399185
+</th>
+<td>
+8
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td>
+3
+</td>
+<td>
+16
+</td>
+<td>
+9.0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+12002672
+</th>
+<td>
+5
+</td>
+<td>
+1
+</td>
+<td>
+55
+</td>
+<td>
+4
+</td>
+<td>
+10
+</td>
+<td>
+3.0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+3486157
+</th>
+<td>
+5
+</td>
+<td>
+1
+</td>
+<td>
+21
+</td>
+<td>
+6
+</td>
+<td>
+8
+</td>
+<td>
+11.0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+4770806
+</th>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+5
+</td>
+<td>
+1
+</td>
+<td>
+16
+</td>
+<td>
+7.0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+5 rows × 26 columns
+</p>
+</div>
+</div>
+</div>
+<div id="dimensionality-reduction-using-pca" class="section level2">
+<h2>Dimensionality reduction using PCA</h2>
+<p>The vast amount of data within the Instacart dataset, encompassing
+diverse features like product purchases, order details, and customer
+information, presents a challenge for analysis.</p>
+<p>This complexity arises from the high dimensionality, which can lead
+to: - Increased computational costs: Training algorithms struggle with
+too many features, making analysis slow and resource-intensive. -
+Overfitting: Models may prioritize memorizing irrelevant details instead
+of learning generalizable patterns. - Difficulty in interpretation:
+Visualizing and understanding high-dimensional data is extremely
+challenging.</p>
+<p>Principal Component Analysis (PCA) comes to the rescue as a
+dimensionality reduction technique. It identifies the most informative
+features (principal components) capturing the majority of the data’s
+variance, effectively compressing the information into a
+lower-dimensional space.</p>
+<p>This offers several benefits for the Instacart dataset: - Improved
+efficiency: Analysis becomes faster and requires fewer resources,
+enabling quicker insights generation. - Reduced overfitting: By focusing
+on essential features, models are less likely to memorize noise, leading
+to better generalization. - Enhanced interpretability: Visualizing and
+understanding the reduced data space with key components is
+significantly easier.</p>
+<p>Applying PCA to the Instacart dataset can reveal: - Hidden patterns:
+Identifying underlying relationships between customer behavior, product
+choices, and order characteristics that might be obscured by the high
+dimensionality. - Key customer segments: Grouping customers based on
+their purchase patterns and uncovering distinct buying behaviors. -
+Product associations: Discovering frequently bought-together products,
+aiding in recommendation systems and marketing strategies.</p>
+<p>By utilizing PCA, we can unlock valuable insights from the Instacart
+data, paving the way for improved customer segmentation, targeted
+marketing campaigns, and ultimately, a more data-driven approach to
+business decisions.</p>
+<div class="sourceCode" id="cb70"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" tabindex="-1"></a>pca <span class="op">=</span> PCA()</span>
+<span id="cb70-2"><a href="#cb70-2" tabindex="-1"></a>pca.fit(df[num_feats])</span>
+<span id="cb70-3"><a href="#cb70-3" tabindex="-1"></a></span>
+<span id="cb70-4"><a href="#cb70-4" tabindex="-1"></a><span class="co"># Calculating eigenvalues from the PCA components</span></span>
+<span id="cb70-5"><a href="#cb70-5" tabindex="-1"></a>eigenvalues <span class="op">=</span> pca.explained_variance_</span>
+<span id="cb70-6"><a href="#cb70-6" tabindex="-1"></a></span>
+<span id="cb70-7"><a href="#cb70-7" tabindex="-1"></a><span class="co"># Creating a DataFrame for components and their corresponding eigenvalues</span></span>
+<span id="cb70-8"><a href="#cb70-8" tabindex="-1"></a>eigenvalues_df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Component&#39;</span>: <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(eigenvalues) <span class="op">+</span> <span class="dv">1</span>), <span class="st">&#39;Eigenvalue&#39;</span>: eigenvalues})</span></code></pre></div>
+<p><strong>Creating a scree plot</strong></p>
+<div class="sourceCode" id="cb71"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb71-2"><a href="#cb71-2" tabindex="-1"></a>plt.plot(eigenvalues_df[<span class="st">&#39;Component&#39;</span>], eigenvalues_df[<span class="st">&#39;Eigenvalue&#39;</span>], marker<span class="op">=</span><span class="st">&#39;o&#39;</span>)</span>
+<span id="cb71-3"><a href="#cb71-3" tabindex="-1"></a>plt.title(<span class="st">&quot;Scree Plot&quot;</span>)</span>
+<span id="cb71-4"><a href="#cb71-4" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;Component&quot;</span>)</span>
+<span id="cb71-5"><a href="#cb71-5" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;Eigenvalue&quot;</span>)</span>
+<span id="cb71-6"><a href="#cb71-6" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb71-7"><a href="#cb71-7" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_82_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p><strong>The above scree plot is created before data
+standardization.</strong></p>
+<p>Following are the key takeaways from the scree plot:</p>
+<ul>
+<li>The first few components capture most of the variance: The plot
+shows a steep decline in the eigenvalue values (which represent the
+amount of variance explained by each component) after the first few
+components. This indicates that the first few components capture a
+significant portion of the overall data variability, while subsequent
+components contribute less and less.</li>
+<li>The ‘elbow’ suggests an appropriate number of components: The scree
+plot exhibits a clear “elbow” shape, where the slope of the curve
+changes abruptly. This is a common heuristic to determine the number of
+components to retain. In this case, the elbow occurs around the 4th or
+5th component, suggesting that these components might be sufficient to
+represent the important information in the data while avoiding
+overfitting.</li>
+</ul>
+<div class="sourceCode" id="cb72"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a><span class="co"># Creating a figure for the plot</span></span>
+<span id="cb72-2"><a href="#cb72-2" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb72-3"><a href="#cb72-3" tabindex="-1"></a></span>
+<span id="cb72-4"><a href="#cb72-4" tabindex="-1"></a><span class="co"># Creating a bar plot for the proportion of variance explained by each PCA component</span></span>
+<span id="cb72-5"><a href="#cb72-5" tabindex="-1"></a>plt.bar(<span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(pca.explained_variance_ratio_) <span class="op">+</span> <span class="dv">1</span>), </span>
+<span id="cb72-6"><a href="#cb72-6" tabindex="-1"></a>        pca.explained_variance_ratio_, </span>
+<span id="cb72-7"><a href="#cb72-7" tabindex="-1"></a>        color<span class="op">=</span><span class="st">&quot;#990066&quot;</span>, </span>
+<span id="cb72-8"><a href="#cb72-8" tabindex="-1"></a>        edgecolor<span class="op">=</span><span class="st">&#39;black&#39;</span>,</span>
+<span id="cb72-9"><a href="#cb72-9" tabindex="-1"></a>        label<span class="op">=</span><span class="st">&#39;Individual Explained Variance&#39;</span>)</span>
+<span id="cb72-10"><a href="#cb72-10" tabindex="-1"></a></span>
+<span id="cb72-11"><a href="#cb72-11" tabindex="-1"></a><span class="co"># Adding a line plot for the cumulative variance explained</span></span>
+<span id="cb72-12"><a href="#cb72-12" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(pca.explained_variance_ratio_) <span class="op">+</span> <span class="dv">1</span>), </span>
+<span id="cb72-13"><a href="#cb72-13" tabindex="-1"></a>         pca.explained_variance_ratio_.cumsum(), </span>
+<span id="cb72-14"><a href="#cb72-14" tabindex="-1"></a>         marker<span class="op">=</span><span class="st">&#39;o&#39;</span>, </span>
+<span id="cb72-15"><a href="#cb72-15" tabindex="-1"></a>         color<span class="op">=</span><span class="st">&quot;red&quot;</span>, </span>
+<span id="cb72-16"><a href="#cb72-16" tabindex="-1"></a>         label<span class="op">=</span><span class="st">&#39;Cumulative Explained Variance&#39;</span>)</span>
+<span id="cb72-17"><a href="#cb72-17" tabindex="-1"></a></span>
+<span id="cb72-18"><a href="#cb72-18" tabindex="-1"></a><span class="co"># Adding labels and title</span></span>
+<span id="cb72-19"><a href="#cb72-19" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Principal Components&#39;</span>)</span>
+<span id="cb72-20"><a href="#cb72-20" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Explained Variance Ratio&#39;</span>)</span>
+<span id="cb72-21"><a href="#cb72-21" tabindex="-1"></a>plt.title(<span class="st">&#39;Explained Variance by PCA Components&#39;</span>)</span>
+<span id="cb72-22"><a href="#cb72-22" tabindex="-1"></a>plt.legend()</span>
+<span id="cb72-23"><a href="#cb72-23" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb72-24"><a href="#cb72-24" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_84_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p><strong>Explained Variance Ratio</strong> plot visualized before data
+standardization.</p>
+<p>The PCA Biplot visualizes the relationships between the features and
+the first two principal components (PC1 and PC2) of the Instacart
+dataset. Each dot represents a feature, and the distance between two
+dots reflects their correlation. The arrows represent the principal
+components, with the length of the arrow indicating the amount of
+variance explained by that component.</p>
+<p>Based on the biplot, it appears that: - PC1 explains a significant
+portion of the variance in the data, as its arrow is much longer than
+the arrow for PC2. - Features on the right side of the plot are
+positively correlated with PC1, while features on the left side are
+negatively correlated. - Features closer together are more correlated
+with each other, while features further apart are less correlated.</p>
+</div>
+<div id="standardizing-the-data-using-standardscaler"
+class="section level2">
+<h2>Standardizing the data using StandardScaler</h2>
+<p>Before applying PCA to the Instacart dataset, standardizing the data
+with StandardScaler is crucial for a meaningful analysis. Imagine
+features like “order amount” in dollars and “number of items” as
+integers. Their vastly different scales would unfairly prioritize the
+feature with larger values during PCA, skewing the analysis.</p>
+<p>Standardization addresses this by transforming each feature’s values
+to have a mean of zero and a standard deviation of one. This essentially
+puts all features on a “level playing field,” ensuring that PCA focuses
+on the inherent variability within each feature, not just its
+magnitude.</p>
+<p>Here’s why standardization is critical for PCA in the Instacart
+dataset: - Fair comparison of features: By removing scale differences,
+features contribute equally to the analysis, preventing any single
+feature from dominating due to its scale. - Improved interpretation:
+Principal components represent directions of maximum variance, and
+standardization ensures this variance reflects the data’s inherent
+structure, not just differences in scale. - Robustness to outliers:
+Standardizing reduces the impact of outliers, which can significantly
+affect PCA results without proper scaling.</p>
+<p>In essence, standardization ensures that PCA captures the true
+underlying relationships between features in the Instacart dataset,
+leading to more accurate and interpretable results. It’s like setting up
+a fair competition where each feature gets a chance to showcase its
+significance, independent of its original “loudness.”</p>
+<div class="sourceCode" id="cb73"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb73-2"><a href="#cb73-2" tabindex="-1"></a>df_scaled <span class="op">=</span> scaler.fit_transform(df)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a>df_scaled <span class="op">=</span> pd.DataFrame(df_scaled, columns<span class="op">=</span>df.columns)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" tabindex="-1"></a>df_scaled.shape</span></code></pre></div>
+<pre><code>(97284, 26)</code></pre>
+<div class="sourceCode" id="cb77"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" tabindex="-1"></a>df_scaled.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+add_to_cart_order
+</th>
+<th>
+reordered
+</th>
+<th>
+order_number
+</th>
+<th>
+order_dow
+</th>
+<th>
+order_hour_of_day
+</th>
+<th>
+days_since_prior_order
+</th>
+<th>
+babies
+</th>
+<th>
+bakery
+</th>
+<th>
+beverages
+</th>
+<th>
+breakfast
+</th>
+<th>
+…
+</th>
+<th>
+household
+</th>
+<th>
+international
+</th>
+<th>
+meat_seafood
+</th>
+<th>
+missing
+</th>
+<th>
+other
+</th>
+<th>
+pantry
+</th>
+<th>
+personal_care
+</th>
+<th>
+pets
+</th>
+<th>
+produce
+</th>
+<th>
+snacks
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+-0.894121
+</td>
+<td>
+0.833307
+</td>
+<td>
+-0.465815
+</td>
+<td>
+-0.834045
+</td>
+<td>
+-1.043563
+</td>
+<td>
+-0.599313
+</td>
+<td>
+-0.114227
+</td>
+<td>
+-0.193784
+</td>
+<td>
+-0.302322
+</td>
+<td>
+-0.153168
+</td>
+<td>
+…
+</td>
+<td>
+-0.154149
+</td>
+<td>
+-0.089554
+</td>
+<td>
+-0.149364
+</td>
+<td>
+-0.045502
+</td>
+<td>
+-0.032871
+</td>
+<td>
+-0.247002
+</td>
+<td>
+-0.117956
+</td>
+<td>
+-0.055431
+</td>
+<td>
+1.559299
+</td>
+<td>
+-0.312219
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+-0.051672
+</td>
+<td>
+0.833307
+</td>
+<td>
+-0.637088
+</td>
+<td>
+0.122244
+</td>
+<td>
+0.607484
+</td>
+<td>
+-0.245111
+</td>
+<td>
+-0.114227
+</td>
+<td>
+-0.193784
+</td>
+<td>
+-0.302322
+</td>
+<td>
+-0.153168
+</td>
+<td>
+…
+</td>
+<td>
+-0.154149
+</td>
+<td>
+-0.089554
+</td>
+<td>
+-0.149364
+</td>
+<td>
+-0.045502
+</td>
+<td>
+-0.032871
+</td>
+<td>
+-0.247002
+</td>
+<td>
+-0.117956
+</td>
+<td>
+-0.055431
+</td>
+<td>
+-0.641314
+</td>
+<td>
+-0.312219
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+-0.472897
+</td>
+<td>
+0.833307
+</td>
+<td>
+2.160361
+</td>
+<td>
+0.600389
+</td>
+<td>
+-0.807699
+</td>
+<td>
+-0.953515
+</td>
+<td>
+-0.114227
+</td>
+<td>
+-0.193784
+</td>
+<td>
+-0.302322
+</td>
+<td>
+-0.153168
+</td>
+<td>
+…
+</td>
+<td>
+-0.154149
+</td>
+<td>
+-0.089554
+</td>
+<td>
+-0.149364
+</td>
+<td>
+-0.045502
+</td>
+<td>
+-0.032871
+</td>
+<td>
+-0.247002
+</td>
+<td>
+-0.117956
+</td>
+<td>
+-0.055431
+</td>
+<td>
+1.559299
+</td>
+<td>
+-0.312219
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+-0.472897
+</td>
+<td>
+0.833307
+</td>
+<td>
+0.219274
+</td>
+<td>
+1.556678
+</td>
+<td>
+-1.279426
+</td>
+<td>
+-0.008976
+</td>
+<td>
+-0.114227
+</td>
+<td>
+-0.193784
+</td>
+<td>
+-0.302322
+</td>
+<td>
+-0.153168
+</td>
+<td>
+…
+</td>
+<td>
+-0.154149
+</td>
+<td>
+-0.089554
+</td>
+<td>
+-0.149364
+</td>
+<td>
+-0.045502
+</td>
+<td>
+-0.032871
+</td>
+<td>
+-0.247002
+</td>
+<td>
+-0.117956
+</td>
+<td>
+-0.055431
+</td>
+<td>
+-0.641314
+</td>
+<td>
+-0.312219
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+-1.034530
+</td>
+<td>
+-1.200038
+</td>
+<td>
+-0.694179
+</td>
+<td>
+-0.834045
+</td>
+<td>
+0.607484
+</td>
+<td>
+-0.481245
+</td>
+<td>
+-0.114227
+</td>
+<td>
+-0.193784
+</td>
+<td>
+-0.302322
+</td>
+<td>
+-0.153168
+</td>
+<td>
+…
+</td>
+<td>
+-0.154149
+</td>
+<td>
+-0.089554
+</td>
+<td>
+-0.149364
+</td>
+<td>
+-0.045502
+</td>
+<td>
+-0.032871
+</td>
+<td>
+-0.247002
+</td>
+<td>
+-0.117956
+</td>
+<td>
+-0.055431
+</td>
+<td>
+-0.641314
+</td>
+<td>
+-0.312219
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+5 rows × 26 columns
+</p>
+</div>
+<div class="sourceCode" id="cb78"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" tabindex="-1"></a>pca <span class="op">=</span> PCA()</span>
+<span id="cb78-2"><a href="#cb78-2" tabindex="-1"></a>pca.fit(df_scaled)</span>
+<span id="cb78-3"><a href="#cb78-3" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="#cb78-4" tabindex="-1"></a><span class="co"># Calculating eigenvalues from the PCA components</span></span>
+<span id="cb78-5"><a href="#cb78-5" tabindex="-1"></a>eigenvalues <span class="op">=</span> pca.explained_variance_</span>
+<span id="cb78-6"><a href="#cb78-6" tabindex="-1"></a></span>
+<span id="cb78-7"><a href="#cb78-7" tabindex="-1"></a><span class="co"># Creating a DataFrame for components and their corresponding eigenvalues</span></span>
+<span id="cb78-8"><a href="#cb78-8" tabindex="-1"></a>eigenvalues_df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Component&#39;</span>: <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(eigenvalues) <span class="op">+</span> <span class="dv">1</span>), <span class="st">&#39;Eigenvalue&#39;</span>: eigenvalues})</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb79-2"><a href="#cb79-2" tabindex="-1"></a>plt.plot(eigenvalues_df[<span class="st">&#39;Component&#39;</span>], eigenvalues_df[<span class="st">&#39;Eigenvalue&#39;</span>], marker<span class="op">=</span><span class="st">&#39;o&#39;</span>)</span>
+<span id="cb79-3"><a href="#cb79-3" tabindex="-1"></a>plt.title(<span class="st">&quot;Scree Plot&quot;</span>)</span>
+<span id="cb79-4"><a href="#cb79-4" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;Component&quot;</span>)</span>
+<span id="cb79-5"><a href="#cb79-5" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;Eigenvalue&quot;</span>)</span>
+<span id="cb79-6"><a href="#cb79-6" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb79-7"><a href="#cb79-7" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_92_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p><strong>The above scree plot is created after data
+standardization.</strong></p>
+<p>Based on the scree plot, it appears that the first 4 or 5 components
+capture most of the variance in the Instacart dataset after performing
+Principal Component Analysis (PCA). This means that the first few
+components contain the most important information about the data, while
+the subsequent components contain less and less important
+information.</p>
+<p>Here are some additional observations about the scree plot: - The
+eigenvalue, which represents the amount of variance explained by each
+component, decreases rapidly after the first few components. This
+indicates that the first few components are more important for capturing
+the overall variability in the data. - There is a clear “elbow” in the
+scree plot around the 4th or 5th component. This is a common heuristic
+used to determine the number of components to retain. In this case, the
+elbow suggests that retaining the first 4 or 5 components would be a
+good compromise between capturing the important information and avoiding
+overfitting. - The exact number of components to retain can also be
+guided by other criteria, such as the desired level of explained
+variance or the interpretability of the components. - It’s important to
+remember that the scree plot is just a visual tool, and the optimal
+number of components may vary depending on the specific analysis goals.
+Overall, the scree plot suggests that using the first 4 or 5 components
+after performing PCA on the Instacart dataset would be a good starting
+point for further analysis. However, it is important to consider other
+factors and potentially use additional techniques to determine the
+optimal number of components for your specific needs.</p>
+<div class="sourceCode" id="cb80"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" tabindex="-1"></a><span class="co"># Creating a figure for the plot</span></span>
+<span id="cb80-2"><a href="#cb80-2" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb80-3"><a href="#cb80-3" tabindex="-1"></a></span>
+<span id="cb80-4"><a href="#cb80-4" tabindex="-1"></a><span class="co"># Creating a bar plot for the proportion of variance explained by each PCA component</span></span>
+<span id="cb80-5"><a href="#cb80-5" tabindex="-1"></a>plt.bar(<span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(pca.explained_variance_ratio_) <span class="op">+</span> <span class="dv">1</span>), </span>
+<span id="cb80-6"><a href="#cb80-6" tabindex="-1"></a>        pca.explained_variance_ratio_, </span>
+<span id="cb80-7"><a href="#cb80-7" tabindex="-1"></a>        color<span class="op">=</span><span class="st">&quot;#990066&quot;</span>, </span>
+<span id="cb80-8"><a href="#cb80-8" tabindex="-1"></a>        edgecolor<span class="op">=</span><span class="st">&#39;black&#39;</span>,</span>
+<span id="cb80-9"><a href="#cb80-9" tabindex="-1"></a>        label<span class="op">=</span><span class="st">&#39;Individual Explained Variance&#39;</span>)</span>
+<span id="cb80-10"><a href="#cb80-10" tabindex="-1"></a></span>
+<span id="cb80-11"><a href="#cb80-11" tabindex="-1"></a><span class="co"># Adding a line plot for the cumulative variance explained</span></span>
+<span id="cb80-12"><a href="#cb80-12" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(pca.explained_variance_ratio_) <span class="op">+</span> <span class="dv">1</span>), </span>
+<span id="cb80-13"><a href="#cb80-13" tabindex="-1"></a>         pca.explained_variance_ratio_.cumsum(), </span>
+<span id="cb80-14"><a href="#cb80-14" tabindex="-1"></a>         marker<span class="op">=</span><span class="st">&#39;o&#39;</span>, </span>
+<span id="cb80-15"><a href="#cb80-15" tabindex="-1"></a>         color<span class="op">=</span><span class="st">&quot;red&quot;</span>, </span>
+<span id="cb80-16"><a href="#cb80-16" tabindex="-1"></a>         label<span class="op">=</span><span class="st">&#39;Cumulative Explained Variance&#39;</span>)</span>
+<span id="cb80-17"><a href="#cb80-17" tabindex="-1"></a></span>
+<span id="cb80-18"><a href="#cb80-18" tabindex="-1"></a><span class="co"># Adding labels and title</span></span>
+<span id="cb80-19"><a href="#cb80-19" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Principal Components&#39;</span>)</span>
+<span id="cb80-20"><a href="#cb80-20" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Explained Variance Ratio&#39;</span>)</span>
+<span id="cb80-21"><a href="#cb80-21" tabindex="-1"></a>plt.title(<span class="st">&#39;Explained Variance by PCA Components&#39;</span>)</span>
+<span id="cb80-22"><a href="#cb80-22" tabindex="-1"></a>plt.legend()</span>
+<span id="cb80-23"><a href="#cb80-23" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb80-24"><a href="#cb80-24" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_94_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p><strong>Explained Variance Ratio</strong> plot visualized after data
+standardization.</p>
+<p>The first few principal components capture a significant portion of
+the variance in the Instacart dataset. This is indicated by the rapid
+decrease in the explained variance ratio after the first few components.
+For example, if the first component explains 50% of the variance, and
+the second component only adds another 10%, then there’s little benefit
+in including many more components beyond the first few.</p>
+<p>The specific number of components to retain depends on your analysis
+goals and desired trade-off between explained variance and model
+complexity. In general, retaining more components will explain more of
+the variance in the data, but it also increases the risk of overfitting.
+The “elbow” in the plot is a common heuristic to guide selection, but
+other factors like interpretability of the components should also be
+considered.</p>
+<div class="sourceCode" id="cb81"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" tabindex="-1"></a><span class="co"># Define a function to plot the elbow</span></span>
+<span id="cb81-2"><a href="#cb81-2" tabindex="-1"></a>max_clusters <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb81-3"><a href="#cb81-3" tabindex="-1"></a>elbow_scores <span class="op">=</span> []</span>
+<span id="cb81-4"><a href="#cb81-4" tabindex="-1"></a>silhouette_scores <span class="op">=</span> []</span>
+<span id="cb81-5"><a href="#cb81-5" tabindex="-1"></a></span>
+<span id="cb81-6"><a href="#cb81-6" tabindex="-1"></a><span class="co"># Calculate distortions and silhouette scores for different cluster numbers</span></span>
+<span id="cb81-7"><a href="#cb81-7" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, max_clusters <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb81-8"><a href="#cb81-8" tabindex="-1"></a>    kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>k, random_state<span class="op">=</span><span class="dv">42</span>, init<span class="op">=</span><span class="st">&#39;k-means++&#39;</span>)</span>
+<span id="cb81-9"><a href="#cb81-9" tabindex="-1"></a>    kmeans.fit(df_scaled)</span>
+<span id="cb81-10"><a href="#cb81-10" tabindex="-1"></a>    elbow_scores.append(kmeans.inertia_)</span>
+<span id="cb81-11"><a href="#cb81-11" tabindex="-1"></a>    </span>
+<span id="cb81-12"><a href="#cb81-12" tabindex="-1"></a>    <span class="cf">if</span> k <span class="op">&gt;</span> <span class="dv">1</span>:  <span class="co"># Silhouette score is not defined for a single cluster</span></span>
+<span id="cb81-13"><a href="#cb81-13" tabindex="-1"></a>        silhouette_scores.append(silhouette_score(df_scaled, kmeans.labels_))</span>
+<span id="cb81-14"><a href="#cb81-14" tabindex="-1"></a></span>
+<span id="cb81-15"><a href="#cb81-15" tabindex="-1"></a><span class="co"># Plot Elbow Method</span></span>
+<span id="cb81-16"><a href="#cb81-16" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
+<span id="cb81-17"><a href="#cb81-17" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb81-18"><a href="#cb81-18" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, max_clusters <span class="op">+</span> <span class="dv">1</span>), elbow_scores, marker<span class="op">=</span><span class="st">&#39;o&#39;</span>)</span>
+<span id="cb81-19"><a href="#cb81-19" tabindex="-1"></a><span class="co"># plt.axvline(4, linestyle=&#39;--&#39;, c=&#39;r&#39;)</span></span>
+<span id="cb81-20"><a href="#cb81-20" tabindex="-1"></a>plt.title(<span class="st">&#39;Elbow Method&#39;</span>)</span>
+<span id="cb81-21"><a href="#cb81-21" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Number of Clusters (k)&#39;</span>)</span>
+<span id="cb81-22"><a href="#cb81-22" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Distortion&#39;</span>)</span>
+<span id="cb81-23"><a href="#cb81-23" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb81-24"><a href="#cb81-24" tabindex="-1"></a></span>
+<span id="cb81-25"><a href="#cb81-25" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb81-26"><a href="#cb81-26" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_96_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p><strong>Elbow method for determining the optimal number of
+clusters:</strong></p>
+<p>The plot displays the distortion (often measured as the sum of
+squared distances within clusters) against the number of clusters (k),
+indicating how well the k-means algorithm fits the data with different
+cluster numbers. An “elbow” shape is typically sought to identify the
+optimal number of clusters.</p>
+<p>Observations: - Overall trend: The distortion generally decreases as
+the number of clusters increases, which is expected as more clusters can
+potentially better fit the data points. - Elbow: While a definitive
+elbow isn’t readily apparent, there might be a subtle bend around k=3 or
+4. This suggests that adding more clusters beyond this point might not
+significantly improve the fit and could lead to overfitting. -
+Distortion values: The distortion values seem relatively close across
+different k, making it slightly harder to pinpoint the elbow
+visually.</p>
+</div>
+<div id="exploring-the-data-by-cluster" class="section level2">
+<h2>Exploring the data by cluster</h2>
+<div class="sourceCode" id="cb82"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">3</span>, init<span class="op">=</span><span class="st">&#39;random&#39;</span>, n_init<span class="op">=</span><span class="dv">10</span>, max_iter<span class="op">=</span><span class="dv">500</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb82-2"><a href="#cb82-2" tabindex="-1"></a>kmeans_clusters <span class="op">=</span> kmeans.fit_predict(df_scaled)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" tabindex="-1"></a>df_scaled[<span class="st">&#39;cluster_k&#39;</span>] <span class="op">=</span> kmeans_clusters</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" tabindex="-1"></a>df_scaled.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+add_to_cart_order
+</th>
+<th>
+reordered
+</th>
+<th>
+order_number
+</th>
+<th>
+order_dow
+</th>
+<th>
+order_hour_of_day
+</th>
+<th>
+days_since_prior_order
+</th>
+<th>
+babies
+</th>
+<th>
+bakery
+</th>
+<th>
+beverages
+</th>
+<th>
+breakfast
+</th>
+<th>
+…
+</th>
+<th>
+international
+</th>
+<th>
+meat_seafood
+</th>
+<th>
+missing
+</th>
+<th>
+other
+</th>
+<th>
+pantry
+</th>
+<th>
+personal_care
+</th>
+<th>
+pets
+</th>
+<th>
+produce
+</th>
+<th>
+snacks
+</th>
+<th>
+cluster_k
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+-0.894121
+</td>
+<td>
+0.833307
+</td>
+<td>
+-0.465815
+</td>
+<td>
+-0.834045
+</td>
+<td>
+-1.043563
+</td>
+<td>
+-0.599313
+</td>
+<td>
+-0.114227
+</td>
+<td>
+-0.193784
+</td>
+<td>
+-0.302322
+</td>
+<td>
+-0.153168
+</td>
+<td>
+…
+</td>
+<td>
+-0.089554
+</td>
+<td>
+-0.149364
+</td>
+<td>
+-0.045502
+</td>
+<td>
+-0.032871
+</td>
+<td>
+-0.247002
+</td>
+<td>
+-0.117956
+</td>
+<td>
+-0.055431
+</td>
+<td>
+1.559299
+</td>
+<td>
+-0.312219
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+-0.051672
+</td>
+<td>
+0.833307
+</td>
+<td>
+-0.637088
+</td>
+<td>
+0.122244
+</td>
+<td>
+0.607484
+</td>
+<td>
+-0.245111
+</td>
+<td>
+-0.114227
+</td>
+<td>
+-0.193784
+</td>
+<td>
+-0.302322
+</td>
+<td>
+-0.153168
+</td>
+<td>
+…
+</td>
+<td>
+-0.089554
+</td>
+<td>
+-0.149364
+</td>
+<td>
+-0.045502
+</td>
+<td>
+-0.032871
+</td>
+<td>
+-0.247002
+</td>
+<td>
+-0.117956
+</td>
+<td>
+-0.055431
+</td>
+<td>
+-0.641314
+</td>
+<td>
+-0.312219
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+-0.472897
+</td>
+<td>
+0.833307
+</td>
+<td>
+2.160361
+</td>
+<td>
+0.600389
+</td>
+<td>
+-0.807699
+</td>
+<td>
+-0.953515
+</td>
+<td>
+-0.114227
+</td>
+<td>
+-0.193784
+</td>
+<td>
+-0.302322
+</td>
+<td>
+-0.153168
+</td>
+<td>
+…
+</td>
+<td>
+-0.089554
+</td>
+<td>
+-0.149364
+</td>
+<td>
+-0.045502
+</td>
+<td>
+-0.032871
+</td>
+<td>
+-0.247002
+</td>
+<td>
+-0.117956
+</td>
+<td>
+-0.055431
+</td>
+<td>
+1.559299
+</td>
+<td>
+-0.312219
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+-0.472897
+</td>
+<td>
+0.833307
+</td>
+<td>
+0.219274
+</td>
+<td>
+1.556678
+</td>
+<td>
+-1.279426
+</td>
+<td>
+-0.008976
+</td>
+<td>
+-0.114227
+</td>
+<td>
+-0.193784
+</td>
+<td>
+-0.302322
+</td>
+<td>
+-0.153168
+</td>
+<td>
+…
+</td>
+<td>
+-0.089554
+</td>
+<td>
+-0.149364
+</td>
+<td>
+-0.045502
+</td>
+<td>
+-0.032871
+</td>
+<td>
+-0.247002
+</td>
+<td>
+-0.117956
+</td>
+<td>
+-0.055431
+</td>
+<td>
+-0.641314
+</td>
+<td>
+-0.312219
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+-1.034530
+</td>
+<td>
+-1.200038
+</td>
+<td>
+-0.694179
+</td>
+<td>
+-0.834045
+</td>
+<td>
+0.607484
+</td>
+<td>
+-0.481245
+</td>
+<td>
+-0.114227
+</td>
+<td>
+-0.193784
+</td>
+<td>
+-0.302322
+</td>
+<td>
+-0.153168
+</td>
+<td>
+…
+</td>
+<td>
+-0.089554
+</td>
+<td>
+-0.149364
+</td>
+<td>
+-0.045502
+</td>
+<td>
+-0.032871
+</td>
+<td>
+-0.247002
+</td>
+<td>
+-0.117956
+</td>
+<td>
+-0.055431
+</td>
+<td>
+-0.641314
+</td>
+<td>
+-0.312219
+</td>
+<td>
+2
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+5 rows × 27 columns
+</p>
+</div>
+<div class="sourceCode" id="cb85"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" tabindex="-1"></a>pca <span class="op">=</span> PCA(<span class="dv">2</span>)</span>
+<span id="cb85-2"><a href="#cb85-2" tabindex="-1"></a>pca_df <span class="op">=</span> pd.DataFrame(pca.fit_transform(df_scaled), columns<span class="op">=</span>[<span class="st">&#39;pca0&#39;</span>, <span class="st">&#39;pca1&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" tabindex="-1"></a>pca_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+pca0
+</th>
+<th>
+pca1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+-0.154728
+</td>
+<td>
+1.400722
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+-1.535489
+</td>
+<td>
+-0.704430
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+-0.769447
+</td>
+<td>
+2.860632
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+-1.819929
+</td>
+<td>
+-0.253640
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+-1.051001
+</td>
+<td>
+-1.326957
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb87"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" tabindex="-1"></a>pca_df[<span class="st">&#39;cluster_ks&#39;</span>] <span class="op">=</span> kmeans_clusters</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" tabindex="-1"></a>pca_df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+pca0
+</th>
+<th>
+pca1
+</th>
+<th>
+cluster_ks
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+-0.154728
+</td>
+<td>
+1.400722
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+-1.535489
+</td>
+<td>
+-0.704430
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+-0.769447
+</td>
+<td>
+2.860632
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+-1.819929
+</td>
+<td>
+-0.253640
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+-1.051001
+</td>
+<td>
+-1.326957
+</td>
+<td>
+2
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb89"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb89-2"><a href="#cb89-2" tabindex="-1"></a>ax <span class="op">=</span> plt.subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">&#39;3d&#39;</span>, label<span class="op">=</span><span class="st">&quot;bla&quot;</span>)</span>
+<span id="cb89-3"><a href="#cb89-3" tabindex="-1"></a><span class="cf">for</span> cluster_num <span class="kw">in</span> np.unique(kmeans_clusters):</span>
+<span id="cb89-4"><a href="#cb89-4" tabindex="-1"></a>    ax.scatter(pca_df[kmeans_clusters <span class="op">==</span> cluster_num][<span class="st">&#39;pca0&#39;</span>],</span>
+<span id="cb89-5"><a href="#cb89-5" tabindex="-1"></a>               pca_df[kmeans_clusters <span class="op">==</span> cluster_num][<span class="st">&#39;pca1&#39;</span>],</span>
+<span id="cb89-6"><a href="#cb89-6" tabindex="-1"></a>               label<span class="op">=</span><span class="ss">f&quot;Clouster: </span><span class="sc">{</span>cluster_num<span class="sc">}</span><span class="ss">&quot;</span>,</span>
+<span id="cb89-7"><a href="#cb89-7" tabindex="-1"></a>               s<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb89-8"><a href="#cb89-8" tabindex="-1"></a>               alpha<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb89-9"><a href="#cb89-9" tabindex="-1"></a>               marker<span class="op">=</span><span class="st">&#39;o&#39;</span>,)</span>
+<span id="cb89-10"><a href="#cb89-10" tabindex="-1"></a>plt.title(<span class="st">&quot;3D PCA plot of Instacart&#39;s Order Segmentations&quot;</span>)</span>
+<span id="cb89-11"><a href="#cb89-11" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;Principal Component 0&quot;</span>)</span>
+<span id="cb89-12"><a href="#cb89-12" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;Principal Component 1&quot;</span>)</span>
+<span id="cb89-13"><a href="#cb89-13" tabindex="-1"></a>plt.legend()</span>
+<span id="cb89-14"><a href="#cb89-14" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_106_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>A three-dimensional PCA plot of Instacart’s order segmentation is
+visible in the cluster visualisation. Principal Component Analysis, or
+PCA, is a dimensionality reduction method that assists in locating and
+compressing a dataset’s most crucial properties into a lower-dimensional
+space.</p>
+<p>This helps with marketing and segmentation in a number of ways:</p>
+<ol style="list-style-type: decimal">
+<li><p>Finding hidden client segments: We can find patterns in our
+customer data that are not immediately visible from the raw data by
+examining the primary components. Our consumers can then be divided into
+groups based on shared traits or behaviours by using these
+patterns.</p></li>
+<li><p>Recognising client behaviour: We can better grasp the
+relationships between various customer groups by visualising the major
+components in a lower-dimensional environment. This can assist us in
+creating marketing initiatives that are more likely to be relevant to
+each target category.</p></li>
+<li><p>Reducing overfitting: Overfitting occurs when we try to build a
+segmentation model using every characteristic in our data. When a model
+memorises the particular training data too well and struggles to
+generalise to new data, it is said to be overfitting. Through the
+reduction of features in the model, PCA can aid in the reduction of
+overfitting.</p></li>
+<li><p>Enhancing marketing campaign performance: We can enhance the
+effectiveness of your marketing campaigns by segmenting our consumer
+base and better targeting them with PCA. Sales, conversion rates, and
+customer happiness may all rise as a result.</p></li>
+</ol>
+<p>The three axes in the particular instance of the Instacart 3D PCA
+graphic most likely correspond to the principal components that were
+found to be the most significant based on the order data. Instacart
+could be able to identify client categories based on their ordering
+patterns by looking at the locations of various orders in this area.</p>
+<blockquote>
+<p>For example, one segment might consist of customers who frequently
+order groceries, while another segment might consist of customers who
+primarily order prepared meals.</p>
+</blockquote>
+<p>All things considered, PCA is an effective tool for creating more
+effective segmentation plans and focused marketing efforts. In order to
+better understand our customers and develop more successful marketing
+efforts, we can use PCA to find hidden patterns in our customer
+data.</p>
 </div>
 
 
