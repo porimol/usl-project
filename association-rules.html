@@ -45,6 +45,107 @@
 
 
 
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -334,15 +435,3488 @@ div.tocify {
 </div>
 
 
-<div id="association-rule" class="section level2">
-<h2><strong>Association Rule</strong></h2>
+<div
+id="unveiling-hidden-patterns-market-basket-analysis-of-the-groceries-transactions-dataset"
+class="section level2">
+<h2><strong>Unveiling Hidden Patterns: Market Basket Analysis of the
+groceries transactions dataset</strong></h2>
 <p>Porimol Chandro<br />
 1st Year Master’s Student of Data Science and Business Analytics<br />
 Faculty of Economic Sciences, University of Warsaw</p>
 </div>
-<div id="association-rule-1" class="section level2">
-<h2>Association Rule</h2>
-<p>Work in progress…..</p>
+<div id="table-of-contents" class="section level2">
+<h2>Table of contents</h2>
+<ol style="list-style-type: decimal">
+<li>Motivation(What Drives My Project Interest?)</li>
+<li>Import required python packages</li>
+<li>Dataset information</li>
+<li>Load dataset</li>
+<li>Datasets merging</li>
+<li>Exploratory Data Analysis(EDA)
+<ul>
+<li>The search for missings and duplicates</li>
+<li>Visualizing missing values</li>
+<li>Ploting the frequency values of categorical and numerical
+features</li>
+<li>Get list of categorical and numerical variables</li>
+</ul></li>
+<li>Data Preparation for Market Basket Analysis</li>
+<li>Rule Generation and Selection Criteria</li>
+<li>Top Products Combinations for Marketing</li>
+<li>Conclusion</li>
+</ol>
+</div>
+<div id="motivationwhat-drives-my-project-interest"
+class="section level2">
+<h2>Motivation(What Drives My Project Interest?)</h2>
+<p>In the dynamic landscape of retail, understanding consumer behavior
+and purchasing patterns is pivotal for businesses seeking to enhance
+customer experiences and optimize their product offerings. The project,
+titled
+<code>Unveiling Hidden Patterns: Market Basket Analysis of the Groceries Transactions Dataset,</code>
+embarks on a journey to unravel the intricate relationships and hidden
+insights embedded within the vast realm of grocery transactions.</p>
+<p>As consumers navigate the aisles, their choices create a rich
+tapestry of interconnected preferences, revealing patterns that extend
+beyond individual product selections. Market Basket Analysis (MBA)
+emerges as a powerful analytical tool, allowing us to delve into the
+associations between items purchased and uncover latent patterns that
+influence shopping decisions. By scrutinizing transactional data, this
+project aims to shed light on the often elusive connections between
+diverse grocery items, providing valuable insights for both retailers
+and consumers alike.</p>
+<p>Through a meticulous exploration of the groceries transactions
+dataset, we seek to identify frequently co-occurring items, understand
+the dependencies between products, and discern the underlying principles
+steering consumer choices. By employing advanced data mining techniques,
+we aspire to extract meaningful rules and associations that hold the
+potential to transform how retailers design product placements,
+promotions, and overall store layouts.</p>
+<p>The significance of this project lies in its capacity to empower
+businesses with actionable intelligence, enabling them to optimize
+inventory management, enhance cross-selling strategies, and tailor their
+offerings to align with the evolving needs and preferences of their
+clientele. Moreover, for consumers, the findings promise a more
+personalized and intuitive shopping experience, as retailers leverage
+the discovered patterns to tailor recommendations and promotions to
+individual preferences.</p>
+<p>In essence, <code>Unveiling Hidden Patterns</code> stands as a
+testament to the transformative power of data analytics in the retail
+sphere, offering a nuanced understanding of consumer behavior and
+opening doors to a new era of precision in the grocery retail landscape.
+Through this exploration, we aim to contribute to the broader discourse
+on market dynamics, ultimately fostering an environment where both
+retailers and consumers can make informed decisions that resonate with
+the evolving fabric of consumer preferences.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">from</span> mlxtend.frequent_patterns <span class="im">import</span> apriori, association_rules</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span></code></pre></div>
+</div>
+<div id="dataset-information" class="section level2">
+<h2>Dataset Information</h2>
+<p>The dataset I use Open Sourced Transactional datasets <a
+href="https://archive.ics.uci.edu/dataset/352/online+retail"
+class="uri">https://archive.ics.uci.edu/dataset/352/online+retail</a>.</p>
+<p>In the following, I description all of the feature variables.</p>
+<table class="my-4 table w-full">
+<thead>
+<tr>
+<th>
+Variable Name
+</th>
+<pre><code>        &lt;th&gt;Role&lt;/th&gt;&lt;th&gt;Type&lt;/th&gt;
+        &lt;th&gt;Demographic&lt;/th&gt;
+        &lt;th&gt;Description&lt;/th&gt;
+        &lt;th&gt;Units&lt;/th&gt;
+        &lt;th&gt;Missing Values&lt;/th&gt;
+    &lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td&gt;InvoiceNo&lt;/td&gt;&lt;td&gt;ID&lt;/td&gt;&lt;td&gt;Categorical&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;a 6-digit integral number uniquely assigned to each transaction. If this code starts with letter &#39;c&#39;, it indicates a cancellation&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;no&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;StockCode&lt;/td&gt;&lt;td&gt;ID&lt;/td&gt;&lt;td&gt;Categorical&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;a 5-digit integral number uniquely assigned to each distinct product&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;no&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Description&lt;/td&gt;&lt;td&gt;Feature&lt;/td&gt;&lt;td&gt;Categorical&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;product name&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;no&lt;/td&gt; &lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Quantity&lt;/td&gt;&lt;td&gt;Feature&lt;/td&gt;&lt;td&gt;Integer&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;the quantities of each product (item) per transaction&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;no&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;InvoiceDate&lt;/td&gt;&lt;td&gt;Feature&lt;/td&gt;&lt;td&gt;Date&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;the day and time when each transaction was generated&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;no&lt;/td&gt; &lt;/tr&gt;&lt;tr&gt;&lt;td&gt;UnitPrice&lt;/td&gt;&lt;td&gt;Feature&lt;/td&gt;&lt;td&gt;Continuous&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;product price per unit&lt;/td&gt;&lt;td&gt;sterling&lt;/td&gt;&lt;td&gt;no&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;CustomerID&lt;/td&gt;&lt;td&gt;Feature&lt;/td&gt;&lt;td&gt;Categorical&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;a 5-digit integral number uniquely assigned to each customer&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;no&lt;/td&gt; &lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Country&lt;/td&gt;&lt;td&gt;Feature&lt;/td&gt;&lt;td&gt;Categorical&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;the name of the country where each customer resides&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;no&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/tbody&gt;</code></pre>
+</table>
+<div id="datasets-citation" class="section level3">
+<h3>Datasets Citation</h3>
+<pre><code>Chen,Daqing. (2015). Online Retail. UCI Machine Learning Repository. https://doi.org/10.24432/C5BW33.</code></pre>
+</div>
+</div>
+<div id="load-the-data" class="section level2">
+<h2>Load the data</h2>
+<p>Load all datasets</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>df <span class="op">=</span> pd.read_excel(<span class="st">&quot;datasets/OnlineRetail.xlsx&quot;</span>)</span></code></pre></div>
+<p>Displaying the shape of the dataset and first 5 rows of each
+dataset</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>df.shape</span></code></pre></div>
+<pre><code>(541909, 8)</code></pre>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>df.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+InvoiceNo
+</th>
+<th>
+StockCode
+</th>
+<th>
+Description
+</th>
+<th>
+Quantity
+</th>
+<th>
+InvoiceDate
+</th>
+<th>
+UnitPrice
+</th>
+<th>
+CustomerID
+</th>
+<th>
+Country
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+536365
+</td>
+<td>
+85123A
+</td>
+<td>
+WHITE HANGING HEART T-LIGHT HOLDER
+</td>
+<td>
+6
+</td>
+<td>
+2010-12-01 08:26:00
+</td>
+<td>
+2.55
+</td>
+<td>
+17850.0
+</td>
+<td>
+United Kingdom
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+536365
+</td>
+<td>
+71053
+</td>
+<td>
+WHITE METAL LANTERN
+</td>
+<td>
+6
+</td>
+<td>
+2010-12-01 08:26:00
+</td>
+<td>
+3.39
+</td>
+<td>
+17850.0
+</td>
+<td>
+United Kingdom
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+536365
+</td>
+<td>
+84406B
+</td>
+<td>
+CREAM CUPID HEARTS COAT HANGER
+</td>
+<td>
+8
+</td>
+<td>
+2010-12-01 08:26:00
+</td>
+<td>
+2.75
+</td>
+<td>
+17850.0
+</td>
+<td>
+United Kingdom
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+536365
+</td>
+<td>
+84029G
+</td>
+<td>
+KNITTED UNION FLAG HOT WATER BOTTLE
+</td>
+<td>
+6
+</td>
+<td>
+2010-12-01 08:26:00
+</td>
+<td>
+3.39
+</td>
+<td>
+17850.0
+</td>
+<td>
+United Kingdom
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+536365
+</td>
+<td>
+84029E
+</td>
+<td>
+RED WOOLLY HOTTIE WHITE HEART.
+</td>
+<td>
+6
+</td>
+<td>
+2010-12-01 08:26:00
+</td>
+<td>
+3.39
+</td>
+<td>
+17850.0
+</td>
+<td>
+United Kingdom
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>df.columns</span></code></pre></div>
+<pre><code>Index([&#39;InvoiceNo&#39;, &#39;StockCode&#39;, &#39;Description&#39;, &#39;Quantity&#39;, &#39;InvoiceDate&#39;,
+       &#39;UnitPrice&#39;, &#39;CustomerID&#39;, &#39;Country&#39;],
+      dtype=&#39;object&#39;)</code></pre>
+</div>
+<div id="exploratory-data-analysiseda" class="section level2">
+<h2>Exploratory Data Analysis(EDA)</h2>
+<p>Descriptive statistics about the dataset</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>df.describe()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Quantity
+</th>
+<th>
+InvoiceDate
+</th>
+<th>
+UnitPrice
+</th>
+<th>
+CustomerID
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+count
+</th>
+<td>
+541909.000000
+</td>
+<td>
+541909
+</td>
+<td>
+541909.000000
+</td>
+<td>
+406829.000000
+</td>
+</tr>
+<tr>
+<th>
+mean
+</th>
+<td>
+9.552250
+</td>
+<td>
+2011-07-04 13:34:57.156386048
+</td>
+<td>
+4.611114
+</td>
+<td>
+15287.690570
+</td>
+</tr>
+<tr>
+<th>
+min
+</th>
+<td>
+-80995.000000
+</td>
+<td>
+2010-12-01 08:26:00
+</td>
+<td>
+-11062.060000
+</td>
+<td>
+12346.000000
+</td>
+</tr>
+<tr>
+<th>
+25%
+</th>
+<td>
+1.000000
+</td>
+<td>
+2011-03-28 11:34:00
+</td>
+<td>
+1.250000
+</td>
+<td>
+13953.000000
+</td>
+</tr>
+<tr>
+<th>
+50%
+</th>
+<td>
+3.000000
+</td>
+<td>
+2011-07-19 17:17:00
+</td>
+<td>
+2.080000
+</td>
+<td>
+15152.000000
+</td>
+</tr>
+<tr>
+<th>
+75%
+</th>
+<td>
+10.000000
+</td>
+<td>
+2011-10-19 11:27:00
+</td>
+<td>
+4.130000
+</td>
+<td>
+16791.000000
+</td>
+</tr>
+<tr>
+<th>
+max
+</th>
+<td>
+80995.000000
+</td>
+<td>
+2011-12-09 12:50:00
+</td>
+<td>
+38970.000000
+</td>
+<td>
+18287.000000
+</td>
+</tr>
+<tr>
+<th>
+std
+</th>
+<td>
+218.081158
+</td>
+<td>
+NaN
+</td>
+<td>
+96.759853
+</td>
+<td>
+1713.600303
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Summary of the Distribution:</strong></p>
+<ul>
+<li>The distribution of invoice quantities is skewed to the right,
+meaning there are more invoices with lower quantities than invoices with
+higher quantities.</li>
+<li>The median quantity is around 7, while the mean quantity is higher,
+possibly due to the influence of a few invoices with very high
+quantities.</li>
+<li>The minimum quantity is -80,995, which seems like an outlier and
+might require further investigation. (A negative quantity might indicate
+a return or adjustment.)</li>
+<li>The maximum quantity is 80,995, which also seems like an outlier and
+might warrant further.</li>
+<li>The 25th percentile (Q1) is 1, meaning 25% of invoices have
+quantities less than or equal to 1.</li>
+<li>The 75th percentile (Q3) is 10, meaning 75% of invoices have
+quantities less than or equal to 10.</li>
+</ul>
+<p><strong>Observations:</strong> - The plot suggests that a significant
+portion of invoices involve small quantities of items. - There are a few
+invoices with very large quantities, which could represent bulk orders
+or specific promotional events. - It’s important to consider potential
+outliers and data quality issues when interpreting the results.</p>
+<div id="the-search-for-missings-and-duplicates" class="section level3">
+<h3>The search for missings and duplicates</h3>
+<p>To understand completely the procedures that I ought to follow in
+order to clean the dataset. I examine the data’s details. examining each
+column’s data type in our datasets</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>df.drop_duplicates(inplace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>df.duplicated().value_counts()</span></code></pre></div>
+<pre><code>False    536641
+Name: count, dtype: int64</code></pre>
+<p>Based on the above output, here are no duplicates value in the
+dataset.</p>
+<p>Check the percentage of missing values in the dataset</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()<span class="op">*</span><span class="dv">100</span><span class="op">/</span>df.shape[<span class="dv">0</span>]</span></code></pre></div>
+<pre><code>InvoiceNo       0.000000
+StockCode       0.000000
+Description     0.270945
+Quantity        0.000000
+InvoiceDate     0.000000
+UnitPrice       0.000000
+CustomerID     25.163377
+Country         0.000000
+dtype: float64</code></pre>
+<p>We can see that in <code>CustomerID</code> column we ahve 25% NULL
+values in the dataset, hence it is clean.</p>
+</div>
+<div id="visualizing-missing-values" class="section level3">
+<h3>Visualizing missing values</h3>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>sns.heatmap(df.isnull(), cbar<span class="op">=</span><span class="va">False</span>, cmap<span class="op">=</span><span class="st">&#39;viridis&#39;</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>plt.title(<span class="st">&#39;Missing Values Heatmap&#39;</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_23_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p><strong>Observations:</strong> - Missing values are present in
+several columns: The heatmap shows varying degrees of missingness across
+different columns, with some columns having significantly more missing
+entries than others. - CustomerID and Country columns have the highest
+percentage of missing values: These columns appear almost entirely red,
+indicating a large portion of missing data. - Understanding the reasons
+for missing values in these columns is crucial for further analysis. -
+Other columns with notable missingness: Several other columns show
+patches of red or orange, suggesting moderate levels of missing values.
+These include <code>StockCode</code>, <code>Description</code>,
+<code>InvoiceDate</code>, and <code>UnitPrice</code>. - InvoiceNo and
+Quantity columns seem complete: These columns appear mostly white,
+indicating they have very few or no missing values.</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>df.dropna(inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="bu">len</span>(df)</span></code></pre></div>
+<pre><code>401604</code></pre>
+</div>
+<div id="ploting-the-frequency-values-of-numerical-features"
+class="section level3">
+<h3>Ploting the frequency values of numerical features</h3>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>df.hist(bins<span class="op">=</span><span class="dv">15</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_27_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p><strong>Plot 1: Distribution of quantity</strong> - This plot shows
+the distribution of invoice quantities, which is skewed to the right.
+This means that there are more invoices with lower quantities than there
+are with higher quantities. - The median quantity is around 7, while the
+mean quantity is higher, likely due to the influence of a few invoices
+with very high quantities. - There are also a few outliers, with minimum
+and maximum quantities of -80,995 and 80,995, respectively. These may
+represent errors or unusual orders and should be investigated
+further.</p>
+<p><strong>Plot 2: Quantity by country</strong> - This plot shows the
+distribution of invoice quantities for different countries. - It appears
+that customers in Germany tend to order larger quantities than customers
+in other countries. - However, it is important to note that the sample
+size for some countries may be small, so these results may not be
+generalizable.</p>
+<p><strong>Plot 3: Quantity by day of the week</strong> - This plot
+shows the distribution of invoice quantities for different days of the
+week. - There appears to be a slight peak in quantities on Saturdays,
+but the differences between days are not very large.</p>
+<p><strong>Plot 4: Quantity by hour of the day</strong> - This plot
+shows the distribution of invoice quantities for different hours of the
+day. - There appears to be a peak in quantities in the late afternoon
+and early evening, between 4pm and 8pm. - This suggests that people are
+more likely to order groceries online when they are getting home from
+work or preparing dinner.</p>
+</div>
+</div>
+<div id="data-preparation-for-market-basket-analysis"
+class="section level2">
+<h2>Data Preparation for Market Basket Analysis</h2>
+<p>We need to first convert this data into a format that the Apriori
+algorithm can easily absorb before performing market basket analysis.
+Put differently, we must convert it into a tabular structure made up of
+ones and zeros, much like the example with the milk and bread above.</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co">#Convert the InvoiceNo column to string</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>df[<span class="st">&quot;InvoiceNo&quot;</span>] <span class="op">=</span> df[<span class="st">&quot;InvoiceNo&quot;</span>].astype(<span class="st">&#39;str&#39;</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="co">#Remove rows with invoices that contain a &quot;C&quot;</span></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>df <span class="op">=</span> df[<span class="op">~</span>df[<span class="st">&quot;InvoiceNo&quot;</span>].<span class="bu">str</span>.contains(<span class="st">&quot;C&quot;</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>df.shape</span></code></pre></div>
+<pre><code>(392732, 8)</code></pre>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co">#Check the distribution of transactions per country.</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>top10 <span class="op">=</span> df[<span class="st">&quot;Country&quot;</span>].value_counts().head(<span class="dv">10</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>top10</span></code></pre></div>
+<pre><code>Country
+United Kingdom    349227
+Germany             9027
+France              8327
+EIRE                7228
+Spain               2480
+Netherlands         2363
+Belgium             2031
+Switzerland         1842
+Portugal            1453
+Australia           1184
+Name: count, dtype: int64</code></pre>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>color <span class="op">=</span> sns.color_palette()</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">8</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>sns.countplot(x<span class="op">=</span><span class="st">&quot;Country&quot;</span>, data<span class="op">=</span>df, color<span class="op">=</span>color[<span class="dv">0</span>])</span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Frequency&#39;</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Country name&#39;</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="st">&#39;vertical&#39;</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a>plt.title(<span class="st">&quot;Distribution of Transactions by Country&quot;</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_33_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p><strong>Overall transaction distribution:</strong> - The United
+Kingdom is the dominant country in terms of transaction frequency,
+accounting for over 90% of all transactions. - France comes in a distant
+second, representing around 2.5% of transactions. - Australia,
+Netherlands, and Germany follow with even smaller proportions of
+transactions. - The remaining countries contribute a very small fraction
+of transactions each.</p>
+<p>This plot highlights the significant geographic concentration of
+online retail activity in this dataset, with the vast majority of
+transactions originating from a single country. It’s important to
+consider potential reasons for this imbalance, such as the dataset’s
+origin or focus, before drawing broader conclusions about global online
+retail trends.</p>
+<div id="group-sum-unstack-and-set-index-of-dataframe"
+class="section level3">
+<h3>Group, sum, unstack and set index of dataframe</h3>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>basket <span class="op">=</span> df[df[<span class="st">&#39;Country&#39;</span>] <span class="op">==</span><span class="st">&quot;United Kingdom&quot;</span>]<span class="op">\</span></span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>        .groupby([<span class="st">&#39;InvoiceNo&#39;</span>, <span class="st">&#39;Description&#39;</span>])[<span class="st">&quot;Quantity&quot;</span>]<span class="op">\</span></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>        .<span class="bu">sum</span>().unstack()<span class="op">\</span></span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>        .reset_index().fillna(<span class="dv">0</span>)<span class="op">\</span></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a>        .set_index(<span class="st">&quot;InvoiceNo&quot;</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a>basket.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+Description
+</th>
+<th>
+4 PURPLE FLOCK DINNER CANDLES
+</th>
+<th>
+50’S CHRISTMAS GIFT BAG LARGE
+</th>
+<th>
+DOLLY GIRL BEAKER
+</th>
+<th>
+I LOVE LONDON MINI BACKPACK
+</th>
+<th>
+NINE DRAWER OFFICE TIDY
+</th>
+<th>
+OVAL WALL MIRROR DIAMANTE
+</th>
+<th>
+RED SPOT GIFT BAG LARGE
+</th>
+<th>
+SET 2 TEA TOWELS I LOVE LONDON
+</th>
+<th>
+SPACEBOY BABY GIFT SET
+</th>
+<th>
+TOADSTOOL BEDSIDE LIGHT
+</th>
+<th>
+…
+</th>
+<th>
+ZINC STAR T-LIGHT HOLDER
+</th>
+<th>
+ZINC SWEETHEART SOAP DISH
+</th>
+<th>
+ZINC SWEETHEART WIRE LETTER RACK
+</th>
+<th>
+ZINC T-LIGHT HOLDER STAR LARGE
+</th>
+<th>
+ZINC T-LIGHT HOLDER STARS LARGE
+</th>
+<th>
+ZINC T-LIGHT HOLDER STARS SMALL
+</th>
+<th>
+ZINC TOP 2 DOOR WOODEN SHELF
+</th>
+<th>
+ZINC WILLIE WINKIE CANDLE STICK
+</th>
+<th>
+ZINC WIRE KITCHEN ORGANISER
+</th>
+<th>
+ZINC WIRE SWEETHEART LETTER TRAY
+</th>
+</tr>
+<tr>
+<th>
+InvoiceNo
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+536365
+</th>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+536366
+</th>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+536367
+</th>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+536368
+</th>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+<tr>
+<th>
+536369
+</th>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+…
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+<td>
+0.0
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+5 rows × 3844 columns
+</p>
+</div>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="co">#Create function to hot encode the values</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="kw">def</span> encode_values(x):</span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&gt;=</span> <span class="dv">1</span>:</span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a><span class="co">#Apply function to data</span></span>
+<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a>basket_encoded <span class="op">=</span> basket.applymap(encode_values)</span></code></pre></div>
+<pre><code>/var/folders/n8/zv0wkckj2yj0wtbp49j0czh40000gp/T/ipykernel_53296/1890152148.py:9: FutureWarning: DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+  basket_encoded = basket.applymap(encode_values)</code></pre>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>basket_encoded.shape</span></code></pre></div>
+<pre><code>(16649, 3844)</code></pre>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>basket_encoded.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+Description
+</th>
+<th>
+4 PURPLE FLOCK DINNER CANDLES
+</th>
+<th>
+50’S CHRISTMAS GIFT BAG LARGE
+</th>
+<th>
+DOLLY GIRL BEAKER
+</th>
+<th>
+I LOVE LONDON MINI BACKPACK
+</th>
+<th>
+NINE DRAWER OFFICE TIDY
+</th>
+<th>
+OVAL WALL MIRROR DIAMANTE
+</th>
+<th>
+RED SPOT GIFT BAG LARGE
+</th>
+<th>
+SET 2 TEA TOWELS I LOVE LONDON
+</th>
+<th>
+SPACEBOY BABY GIFT SET
+</th>
+<th>
+TOADSTOOL BEDSIDE LIGHT
+</th>
+<th>
+…
+</th>
+<th>
+ZINC STAR T-LIGHT HOLDER
+</th>
+<th>
+ZINC SWEETHEART SOAP DISH
+</th>
+<th>
+ZINC SWEETHEART WIRE LETTER RACK
+</th>
+<th>
+ZINC T-LIGHT HOLDER STAR LARGE
+</th>
+<th>
+ZINC T-LIGHT HOLDER STARS LARGE
+</th>
+<th>
+ZINC T-LIGHT HOLDER STARS SMALL
+</th>
+<th>
+ZINC TOP 2 DOOR WOODEN SHELF
+</th>
+<th>
+ZINC WILLIE WINKIE CANDLE STICK
+</th>
+<th>
+ZINC WIRE KITCHEN ORGANISER
+</th>
+<th>
+ZINC WIRE SWEETHEART LETTER TRAY
+</th>
+</tr>
+<tr>
+<th>
+InvoiceNo
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+536365
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+536366
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+536367
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+536368
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+536369
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+5 rows × 3844 columns
+</p>
+</div>
+</div>
+<div id="filter-for-only-invoices-with-2-or-more-items"
+class="section level3">
+<h3>Filter for only invoices with 2 or more items</h3>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>basket_filtered <span class="op">=</span> basket_encoded[(basket_encoded <span class="op">&gt;</span> <span class="dv">0</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>) <span class="op">&gt;=</span> <span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>basket_filtered.shape</span></code></pre></div>
+<pre><code>(15376, 3844)</code></pre>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>basket_filtered.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+Description
+</th>
+<th>
+4 PURPLE FLOCK DINNER CANDLES
+</th>
+<th>
+50’S CHRISTMAS GIFT BAG LARGE
+</th>
+<th>
+DOLLY GIRL BEAKER
+</th>
+<th>
+I LOVE LONDON MINI BACKPACK
+</th>
+<th>
+NINE DRAWER OFFICE TIDY
+</th>
+<th>
+OVAL WALL MIRROR DIAMANTE
+</th>
+<th>
+RED SPOT GIFT BAG LARGE
+</th>
+<th>
+SET 2 TEA TOWELS I LOVE LONDON
+</th>
+<th>
+SPACEBOY BABY GIFT SET
+</th>
+<th>
+TOADSTOOL BEDSIDE LIGHT
+</th>
+<th>
+…
+</th>
+<th>
+ZINC STAR T-LIGHT HOLDER
+</th>
+<th>
+ZINC SWEETHEART SOAP DISH
+</th>
+<th>
+ZINC SWEETHEART WIRE LETTER RACK
+</th>
+<th>
+ZINC T-LIGHT HOLDER STAR LARGE
+</th>
+<th>
+ZINC T-LIGHT HOLDER STARS LARGE
+</th>
+<th>
+ZINC T-LIGHT HOLDER STARS SMALL
+</th>
+<th>
+ZINC TOP 2 DOOR WOODEN SHELF
+</th>
+<th>
+ZINC WILLIE WINKIE CANDLE STICK
+</th>
+<th>
+ZINC WIRE KITCHEN ORGANISER
+</th>
+<th>
+ZINC WIRE SWEETHEART LETTER TRAY
+</th>
+</tr>
+<tr>
+<th>
+InvoiceNo
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+536365
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+536366
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+536367
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+536368
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<th>
+536372
+</th>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+…
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+5 rows × 3844 columns
+</p>
+</div>
+</div>
+</div>
+<div
+id="frequent-itemsets-with-incomplete-antecedent-and-consequent-information"
+class="section level2">
+<h2>Frequent Itemsets with Incomplete Antecedent and Consequent
+Information</h2>
+<p>The majority of metrics calculated by association_rules rely on the
+antecedent and consequent support scores of a particular rule, which are
+given in the DataFrame input for the frequent itemset. Take a look at
+this instance:</p>
+<div id="generate-the-frequent-itemsets" class="section level3">
+<h3>Generate the frequent itemsets</h3>
+<p><strong>Here’s a more engaging and informative way to express the
+same idea:</strong></p>
+<p>It’s time to uncover hidden patterns in customer behavior! We’ll
+leverage the powerful Apriori algorithm, a key player in the MLXtend
+Python library, to identify those item combinations that frequently
+share a shopping cart. Let’s dive in and see what exciting insights
+await!</p>
+<p>Key points: - Action-oriented phrasing: “Uncover hidden patterns” and
+“let’s dive in” create a sense of exploration and discovery. -
+Highlighting algorithm’s role: “Key player” emphasizes the Apriori
+algorithm’s importance. - Building anticipation: “Exciting insights
+await” suggests valuable discoveries to come. - Clear purpose: “Identify
+item combinations frequently purchased together” states the goal
+concisely. - Maintaining technical accuracy: The core information about
+the Apriori algorithm and MLXtend library is retained.</p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>frequent_itemsets <span class="op">=</span> apriori(basket_filtered, min_support<span class="op">=</span><span class="fl">0.03</span>, use_colnames<span class="op">=</span><span class="va">True</span>).sort_values(<span class="st">&quot;support&quot;</span>,ascending<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<pre><code>/Users/chandp20/.pyenv/versions/3.11.4/lib/python3.11/site-packages/mlxtend/frequent_patterns/fpcommon.py:109: DeprecationWarning: DataFrames with non-bool types result in worse computationalperformance and their support might be discontinued in the future.Please use a DataFrame with bool type
+  warnings.warn(</code></pre>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>frequent_itemsets.shape</span></code></pre></div>
+<pre><code>(108, 2)</code></pre>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>frequent_itemsets.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+support
+</th>
+<th>
+itemsets
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+99
+</th>
+<td>
+0.121358
+</td>
+<td>
+(WHITE HANGING HEART T-LIGHT HOLDER)
+</td>
+</tr>
+<tr>
+<th>
+44
+</th>
+<td>
+0.093197
+</td>
+<td>
+(JUMBO BAG RED RETROSPOT)
+</td>
+</tr>
+<tr>
+<th>
+80
+</th>
+<td>
+0.090466
+</td>
+<td>
+(REGENCY CAKESTAND 3 TIER)
+</td>
+</tr>
+<tr>
+<th>
+6
+</th>
+<td>
+0.084417
+</td>
+<td>
+(ASSORTED COLOUR BIRD ORNAMENT)
+</td>
+</tr>
+<tr>
+<th>
+71
+</th>
+<td>
+0.082986
+</td>
+<td>
+(PARTY BUNTING)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="rule-generation-and-selection-criteria" class="section level2">
+<h2>Rule Generation and Selection Criteria</h2>
+<div id="apply-association-rules" class="section level3">
+<h3>Apply association rules</h3>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>assoc_rules <span class="op">=</span> association_rules(frequent_itemsets, metric<span class="op">=</span><span class="st">&quot;lift&quot;</span>, min_threshold<span class="op">=</span><span class="dv">1</span>).sort_values(<span class="st">&quot;lift&quot;</span>,ascending<span class="op">=</span><span class="va">False</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>assoc_rules.shape</span></code></pre></div>
+<pre><code>(8, 10)</code></pre>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>assoc_rules.head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+antecedents
+</th>
+<th>
+consequents
+</th>
+<th>
+antecedent support
+</th>
+<th>
+consequent support
+</th>
+<th>
+support
+</th>
+<th>
+confidence
+</th>
+<th>
+lift
+</th>
+<th>
+leverage
+</th>
+<th>
+conviction
+</th>
+<th>
+zhangs_metric
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+(ROSES REGENCY TEACUP AND SAUCER )
+</td>
+<td>
+(GREEN REGENCY TEACUP AND SAUCER)
+</td>
+<td>
+0.043900
+</td>
+<td>
+0.039802
+</td>
+<td>
+0.030957
+</td>
+<td>
+0.705185
+</td>
+<td>
+17.717202
+</td>
+<td>
+0.029210
+</td>
+<td>
+3.256952
+</td>
+<td>
+0.986881
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+(GREEN REGENCY TEACUP AND SAUCER)
+</td>
+<td>
+(ROSES REGENCY TEACUP AND SAUCER )
+</td>
+<td>
+0.039802
+</td>
+<td>
+0.043900
+</td>
+<td>
+0.030957
+</td>
+<td>
+0.777778
+</td>
+<td>
+17.717202
+</td>
+<td>
+0.029210
+</td>
+<td>
+4.302452
+</td>
+<td>
+0.982670
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+(LUNCH BAG RED RETROSPOT)
+</td>
+<td>
+(LUNCH BAG PINK POLKADOT)
+</td>
+<td>
+0.072841
+</td>
+<td>
+0.055086
+</td>
+<td>
+0.030632
+</td>
+<td>
+0.420536
+</td>
+<td>
+7.634188
+</td>
+<td>
+0.026620
+</td>
+<td>
+1.630668
+</td>
+<td>
+0.937283
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+(LUNCH BAG PINK POLKADOT)
+</td>
+<td>
+(LUNCH BAG RED RETROSPOT)
+</td>
+<td>
+0.055086
+</td>
+<td>
+0.072841
+</td>
+<td>
+0.030632
+</td>
+<td>
+0.556080
+</td>
+<td>
+7.634188
+</td>
+<td>
+0.026620
+</td>
+<td>
+2.088574
+</td>
+<td>
+0.919671
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+(JUMBO BAG RED RETROSPOT)
+</td>
+<td>
+(JUMBO BAG PINK POLKADOT)
+</td>
+<td>
+0.093197
+</td>
+<td>
+0.052680
+</td>
+<td>
+0.032908
+</td>
+<td>
+0.353105
+</td>
+<td>
+6.702899
+</td>
+<td>
+0.027999
+</td>
+<td>
+1.464412
+</td>
+<td>
+0.938253
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>assoc_rules.sort_values([<span class="st">&#39;antecedents&#39;</span>, <span class="st">&#39;consequents&#39;</span>, <span class="st">&#39;support&#39;</span>, <span class="st">&#39;confidence&#39;</span>, <span class="st">&#39;lift&#39;</span>],axis <span class="op">=</span> <span class="dv">0</span>, ascending <span class="op">=</span> <span class="va">False</span>).head(<span class="dv">10</span>)</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+antecedents
+</th>
+<th>
+consequents
+</th>
+<th>
+antecedent support
+</th>
+<th>
+consequent support
+</th>
+<th>
+support
+</th>
+<th>
+confidence
+</th>
+<th>
+lift
+</th>
+<th>
+leverage
+</th>
+<th>
+conviction
+</th>
+<th>
+zhangs_metric
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+6
+</th>
+<td>
+(LUNCH BAG BLACK SKULL.)
+</td>
+<td>
+(LUNCH BAG RED RETROSPOT)
+</td>
+<td>
+0.064646
+</td>
+<td>
+0.072841
+</td>
+<td>
+0.031478
+</td>
+<td>
+0.486922
+</td>
+<td>
+6.684737
+</td>
+<td>
+0.026769
+</td>
+<td>
+1.807051
+</td>
+<td>
+0.909181
+</td>
+</tr>
+<tr>
+<th>
+5
+</th>
+<td>
+(JUMBO BAG PINK POLKADOT)
+</td>
+<td>
+(JUMBO BAG RED RETROSPOT)
+</td>
+<td>
+0.052680
+</td>
+<td>
+0.093197
+</td>
+<td>
+0.032908
+</td>
+<td>
+0.624691
+</td>
+<td>
+6.702899
+</td>
+<td>
+0.027999
+</td>
+<td>
+2.416152
+</td>
+<td>
+0.898124
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+(JUMBO BAG RED RETROSPOT)
+</td>
+<td>
+(JUMBO BAG PINK POLKADOT)
+</td>
+<td>
+0.093197
+</td>
+<td>
+0.052680
+</td>
+<td>
+0.032908
+</td>
+<td>
+0.353105
+</td>
+<td>
+6.702899
+</td>
+<td>
+0.027999
+</td>
+<td>
+1.464412
+</td>
+<td>
+0.938253
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+(LUNCH BAG PINK POLKADOT)
+</td>
+<td>
+(LUNCH BAG RED RETROSPOT)
+</td>
+<td>
+0.055086
+</td>
+<td>
+0.072841
+</td>
+<td>
+0.030632
+</td>
+<td>
+0.556080
+</td>
+<td>
+7.634188
+</td>
+<td>
+0.026620
+</td>
+<td>
+2.088574
+</td>
+<td>
+0.919671
+</td>
+</tr>
+<tr>
+<th>
+7
+</th>
+<td>
+(LUNCH BAG RED RETROSPOT)
+</td>
+<td>
+(LUNCH BAG BLACK SKULL.)
+</td>
+<td>
+0.072841
+</td>
+<td>
+0.064646
+</td>
+<td>
+0.031478
+</td>
+<td>
+0.432143
+</td>
+<td>
+6.684737
+</td>
+<td>
+0.026769
+</td>
+<td>
+1.647164
+</td>
+<td>
+0.917216
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+(LUNCH BAG RED RETROSPOT)
+</td>
+<td>
+(LUNCH BAG PINK POLKADOT)
+</td>
+<td>
+0.072841
+</td>
+<td>
+0.055086
+</td>
+<td>
+0.030632
+</td>
+<td>
+0.420536
+</td>
+<td>
+7.634188
+</td>
+<td>
+0.026620
+</td>
+<td>
+1.630668
+</td>
+<td>
+0.937283
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+(GREEN REGENCY TEACUP AND SAUCER)
+</td>
+<td>
+(ROSES REGENCY TEACUP AND SAUCER )
+</td>
+<td>
+0.039802
+</td>
+<td>
+0.043900
+</td>
+<td>
+0.030957
+</td>
+<td>
+0.777778
+</td>
+<td>
+17.717202
+</td>
+<td>
+0.029210
+</td>
+<td>
+4.302452
+</td>
+<td>
+0.982670
+</td>
+</tr>
+<tr>
+<th>
+0
+</th>
+<td>
+(ROSES REGENCY TEACUP AND SAUCER )
+</td>
+<td>
+(GREEN REGENCY TEACUP AND SAUCER)
+</td>
+<td>
+0.043900
+</td>
+<td>
+0.039802
+</td>
+<td>
+0.030957
+</td>
+<td>
+0.705185
+</td>
+<td>
+17.717202
+</td>
+<td>
+0.029210
+</td>
+<td>
+3.256952
+</td>
+<td>
+0.986881
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="analyze-the-top-frequent-itemsets" class="section level2">
+<h2>Analyze the top frequent itemsets</h2>
+<p>Top Frequent Itemsets:</p>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>frequent_itemsets.sort_values(by<span class="op">=</span><span class="st">&#39;support&#39;</span>, ascending<span class="op">=</span><span class="va">False</span>).head()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+support
+</th>
+<th>
+itemsets
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+99
+</th>
+<td>
+0.121358
+</td>
+<td>
+(WHITE HANGING HEART T-LIGHT HOLDER)
+</td>
+</tr>
+<tr>
+<th>
+44
+</th>
+<td>
+0.093197
+</td>
+<td>
+(JUMBO BAG RED RETROSPOT)
+</td>
+</tr>
+<tr>
+<th>
+80
+</th>
+<td>
+0.090466
+</td>
+<td>
+(REGENCY CAKESTAND 3 TIER)
+</td>
+</tr>
+<tr>
+<th>
+6
+</th>
+<td>
+0.084417
+</td>
+<td>
+(ASSORTED COLOUR BIRD ORNAMENT)
+</td>
+</tr>
+<tr>
+<th>
+71
+</th>
+<td>
+0.082986
+</td>
+<td>
+(PARTY BUNTING)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="analyze-the-top-association-rules" class="section level3">
+<h3>Analyze the top association rules</h3>
+<p>Top Association Rules:</p>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>assoc_rules.sort_values([<span class="st">&quot;support&quot;</span>, <span class="st">&quot;confidence&quot;</span>,<span class="st">&quot;lift&quot;</span>],axis <span class="op">=</span> <span class="dv">0</span>, ascending <span class="op">=</span> <span class="va">False</span>).head(<span class="dv">10</span>)</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+antecedents
+</th>
+<th>
+consequents
+</th>
+<th>
+antecedent support
+</th>
+<th>
+consequent support
+</th>
+<th>
+support
+</th>
+<th>
+confidence
+</th>
+<th>
+lift
+</th>
+<th>
+leverage
+</th>
+<th>
+conviction
+</th>
+<th>
+zhangs_metric
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+5
+</th>
+<td>
+(JUMBO BAG PINK POLKADOT)
+</td>
+<td>
+(JUMBO BAG RED RETROSPOT)
+</td>
+<td>
+0.052680
+</td>
+<td>
+0.093197
+</td>
+<td>
+0.032908
+</td>
+<td>
+0.624691
+</td>
+<td>
+6.702899
+</td>
+<td>
+0.027999
+</td>
+<td>
+2.416152
+</td>
+<td>
+0.898124
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+(JUMBO BAG RED RETROSPOT)
+</td>
+<td>
+(JUMBO BAG PINK POLKADOT)
+</td>
+<td>
+0.093197
+</td>
+<td>
+0.052680
+</td>
+<td>
+0.032908
+</td>
+<td>
+0.353105
+</td>
+<td>
+6.702899
+</td>
+<td>
+0.027999
+</td>
+<td>
+1.464412
+</td>
+<td>
+0.938253
+</td>
+</tr>
+<tr>
+<th>
+6
+</th>
+<td>
+(LUNCH BAG BLACK SKULL.)
+</td>
+<td>
+(LUNCH BAG RED RETROSPOT)
+</td>
+<td>
+0.064646
+</td>
+<td>
+0.072841
+</td>
+<td>
+0.031478
+</td>
+<td>
+0.486922
+</td>
+<td>
+6.684737
+</td>
+<td>
+0.026769
+</td>
+<td>
+1.807051
+</td>
+<td>
+0.909181
+</td>
+</tr>
+<tr>
+<th>
+7
+</th>
+<td>
+(LUNCH BAG RED RETROSPOT)
+</td>
+<td>
+(LUNCH BAG BLACK SKULL.)
+</td>
+<td>
+0.072841
+</td>
+<td>
+0.064646
+</td>
+<td>
+0.031478
+</td>
+<td>
+0.432143
+</td>
+<td>
+6.684737
+</td>
+<td>
+0.026769
+</td>
+<td>
+1.647164
+</td>
+<td>
+0.917216
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+(GREEN REGENCY TEACUP AND SAUCER)
+</td>
+<td>
+(ROSES REGENCY TEACUP AND SAUCER )
+</td>
+<td>
+0.039802
+</td>
+<td>
+0.043900
+</td>
+<td>
+0.030957
+</td>
+<td>
+0.777778
+</td>
+<td>
+17.717202
+</td>
+<td>
+0.029210
+</td>
+<td>
+4.302452
+</td>
+<td>
+0.982670
+</td>
+</tr>
+<tr>
+<th>
+0
+</th>
+<td>
+(ROSES REGENCY TEACUP AND SAUCER )
+</td>
+<td>
+(GREEN REGENCY TEACUP AND SAUCER)
+</td>
+<td>
+0.043900
+</td>
+<td>
+0.039802
+</td>
+<td>
+0.030957
+</td>
+<td>
+0.705185
+</td>
+<td>
+17.717202
+</td>
+<td>
+0.029210
+</td>
+<td>
+3.256952
+</td>
+<td>
+0.986881
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+(LUNCH BAG PINK POLKADOT)
+</td>
+<td>
+(LUNCH BAG RED RETROSPOT)
+</td>
+<td>
+0.055086
+</td>
+<td>
+0.072841
+</td>
+<td>
+0.030632
+</td>
+<td>
+0.556080
+</td>
+<td>
+7.634188
+</td>
+<td>
+0.026620
+</td>
+<td>
+2.088574
+</td>
+<td>
+0.919671
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+(LUNCH BAG RED RETROSPOT)
+</td>
+<td>
+(LUNCH BAG PINK POLKADOT)
+</td>
+<td>
+0.072841
+</td>
+<td>
+0.055086
+</td>
+<td>
+0.030632
+</td>
+<td>
+0.420536
+</td>
+<td>
+7.634188
+</td>
+<td>
+0.026620
+</td>
+<td>
+1.630668
+</td>
+<td>
+0.937283
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The products that are commonly purchased together are displayed in
+the “antecedents” and “consequents” columns here.</p>
+<p>In the above table, the first row of the dataset tells us that if a
+person were to buy <code>JUMBO BAG PINK POLKADOT</code>, then they are
+also likely to purchase <code>JUMBO BAG RED RETROSPOT</code>.</p>
+<p>To get the most frequent item combinations in the entire dataset,
+let’s sort the dataset by support, confidence, and lift:</p>
+</div>
+<div id="bar-chart-of-top-frequent-itemsets" class="section level3">
+<h3>Bar chart of top frequent itemsets</h3>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a>top_itemsets <span class="op">=</span> frequent_itemsets.sort_values(by<span class="op">=</span><span class="st">&#39;support&#39;</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb48-3"><a href="#cb48-3" tabindex="-1"></a>sns.barplot(x<span class="op">=</span>top_itemsets[<span class="st">&#39;support&#39;</span>], y<span class="op">=</span>top_itemsets[<span class="st">&#39;itemsets&#39;</span>].astype(<span class="bu">str</span>))</span>
+<span id="cb48-4"><a href="#cb48-4" tabindex="-1"></a>plt.title(<span class="st">&#39;Top 10 Frequent Itemsets&#39;</span>)</span>
+<span id="cb48-5"><a href="#cb48-5" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Support&#39;</span>)</span>
+<span id="cb48-6"><a href="#cb48-6" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Itemsets&#39;</span>)</span>
+<span id="cb48-7"><a href="#cb48-7" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_61_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>From the bar plot we can see that the most popular products
+<code>White hanging heart t-light holder</code>.</p>
+</div>
+<div id="scatter-plot-of-association-rules" class="section level3">
+<h3>Scatter plot of association rules</h3>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span><span class="st">&quot;support&quot;</span>, y<span class="op">=</span><span class="st">&quot;confidence&quot;</span>, size<span class="op">=</span><span class="st">&quot;lift&quot;</span>, data<span class="op">=</span>assoc_rules)</span>
+<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a>plt.title(<span class="st">&#39;Association Rules - Support vs Confidence&#39;</span>)</span>
+<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Support&#39;</span>)</span>
+<span id="cb49-5"><a href="#cb49-5" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Confidence&#39;</span>)</span>
+<span id="cb49-6"><a href="#cb49-6" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_64_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>The scatter plot illustrates how strongly the products are
+associated. It shows the frequency of product purchases made in tandem
+with the degree of their association, or how probable it is that they
+will be picked in combination.</p>
+</div>
+</div>
+<div id="top-products-combinations-for-marketing"
+class="section level2">
+<h2>Top Products Combinations for Marketing</h2>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="cf">for</span> itemset <span class="kw">in</span> top_itemsets[<span class="st">&#39;itemsets&#39;</span>]:</span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;, &quot;</span>.join(itemset))</span></code></pre></div>
+<pre><code>WHITE HANGING HEART T-LIGHT HOLDER
+JUMBO BAG RED RETROSPOT
+REGENCY CAKESTAND 3 TIER
+ASSORTED COLOUR BIRD ORNAMENT
+PARTY BUNTING
+LUNCH BAG RED RETROSPOT
+SET OF 3 CAKE TINS PANTRY DESIGN 
+LUNCH BAG  BLACK SKULL.
+PAPER CHAIN KIT 50&#39;S CHRISTMAS 
+NATURAL SLATE HEART CHALKBOARD </code></pre>
+<div id="creating-a-directed-graph" class="section level3">
+<h3>Creating a directed graph</h3>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a>G <span class="op">=</span> nx.DiGraph()</span>
+<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a><span class="cf">for</span> index, row <span class="kw">in</span> assoc_rules.iterrows():</span>
+<span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a>    antecedent <span class="op">=</span> <span class="bu">list</span>(row[<span class="st">&#39;antecedents&#39;</span>])[<span class="dv">0</span>]</span>
+<span id="cb52-4"><a href="#cb52-4" tabindex="-1"></a>    consequent <span class="op">=</span> <span class="bu">list</span>(row[<span class="st">&#39;consequents&#39;</span>])[<span class="dv">0</span>]</span>
+<span id="cb52-5"><a href="#cb52-5" tabindex="-1"></a>    weight <span class="op">=</span> row[<span class="st">&#39;confidence&#39;</span>]</span>
+<span id="cb52-6"><a href="#cb52-6" tabindex="-1"></a>    G.add_edge(antecedent, consequent, weight<span class="op">=</span>weight)</span>
+<span id="cb52-7"><a href="#cb52-7" tabindex="-1"></a></span>
+<span id="cb52-8"><a href="#cb52-8" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G)</span>
+<span id="cb52-9"><a href="#cb52-9" tabindex="-1"></a>nx.draw(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_color<span class="op">=</span><span class="st">&#39;lightblue&#39;</span>, node_size<span class="op">=</span><span class="dv">2000</span>)</span>
+<span id="cb52-10"><a href="#cb52-10" tabindex="-1"></a>edge_labels <span class="op">=</span> {(u, v): <span class="ss">f&quot;</span><span class="sc">{</span>d[<span class="st">&#39;weight&#39;</span>]<span class="sc">:.2f}</span><span class="ss">&quot;</span> <span class="cf">for</span> u, v, d <span class="kw">in</span> G.edges(data<span class="op">=</span><span class="va">True</span>)}</span>
+<span id="cb52-11"><a href="#cb52-11" tabindex="-1"></a>nx.draw_networkx_edge_labels(G, pos, edge_labels<span class="op">=</span>edge_labels)</span>
+<span id="cb52-12"><a href="#cb52-12" tabindex="-1"></a>plt.title(<span class="st">&quot;Genre Association Rules&quot;</span>)</span>
+<span id="cb52-13"><a href="#cb52-13" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_69_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p>The x-axis shows the support, which represents the frequency of item
+co-occurrences in transactions, and the y-axis shows the confidence,
+which reflects the strength of the association between the items in a
+rule.</p>
+<p><strong>Findings:</strong> - Positive connection between confidence
+and support: From bottom left to top right, there is a noticeable upward
+trend, suggesting that rules with greater support (more items purchased
+together) also typically have more confidence (stronger link). This
+makes sense: if customers regularly purchase both X and Y together,
+there’s a greater likelihood that their purchase of X will be
+accompanied by their purchase of Y. - Diminished returns on confidence:
+Although confidence rises when one is supported, this rise slows down as
+one’s level of support rises. This implies that rules with strong
+support are more likely to be confident, but that big confidence gains
+are not always a result of additional support. Put another way, the most
+consistent purchasing habits may also be the most common. - Scattered
+distribution: Data points are not perfectly aligned, indicating that
+support and confidence are not strictly deterministic. Other factors
+beyond just frequency, such as promotions, seasonality, or customer
+preferences, can influence the strength of associations. - Potential
+rule clusters: There seem to be groups of rules with similar support and
+confidence levels, suggesting potential categories of buying patterns.
+For example, there might be a cluster of rules with low support and
+confidence representing rarely occurring but specific co-purchases,
+while another cluster might show high-support, high-confidence rules for
+staple items frequently bought together.</p>
+<p>Understanding consumer behaviour, product placement tactics, and
+targeted marketing efforts can all benefit from the identification of
+rules with high certainty and useful insights.</p>
+</div>
+<div id="plotting-the-product-association-heatmap"
+class="section level3">
+<h3>Plotting the Product Association Heatmap</h3>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a>pivot <span class="op">=</span> assoc_rules.pivot(index<span class="op">=</span><span class="st">&#39;antecedents&#39;</span>, columns<span class="op">=</span><span class="st">&#39;consequents&#39;</span>, values<span class="op">=</span><span class="st">&#39;support&#39;</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb53-3"><a href="#cb53-3" tabindex="-1"></a>sns.heatmap(pivot, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">&#39;YlGnBu&#39;</span>)</span>
+<span id="cb53-4"><a href="#cb53-4" tabindex="-1"></a>plt.title(<span class="st">&#39;Product Association Heatmap&#39;</span>)</span>
+<span id="cb53-5"><a href="#cb53-5" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="float">
+<img src="output_72_0.png" alt="png" />
+<div class="figcaption">png</div>
+</div>
+<p><strong>Findings about the above scatter plot of Product Association
+Heatmap</strong></p>
+<ul>
+<li>Products bought together often (high support) tend to have a strong
+association (high confidence).</li>
+<li>Frequent purchases don’t always guarantee the strongest link. There
+are diminishing returns for confidence as support increases.</li>
+<li>Not all purchases are created equal. Other factors like promotions
+and preferences influence product relationships.</li>
+<li>Clusters of rules reveal buying patterns. Look for groups with
+similar support and confidence to understand different types of product
+co-occurrences.</li>
+</ul>
+<p>Identifying rules with high confidence and actionable insights can be
+valuable for targeted marketing campaigns, product placement strategies,
+and understanding customer buying behavior. It’s important to consider
+potential limitations of association rule mining, such as identifying
+spurious correlations or overlooking less frequent but potentially
+valuable associations.</p>
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>The analysis of association rules reveals unsurprising yet valuable
+insights into customer purchasing behavior. Top associations primarily
+consist of products within the same category, demonstrating strong
+connections formed through complementary usage or established purchase
+habits.</p>
+<p>In the realm of grocery transactions, our project,
+<code>Unveiling Hidden Patterns,</code> has successfully unraveled
+intricate consumer connections and associations through Market Basket
+Analysis. The insights gained promise transformative implications for
+both retailers and consumers.</p>
+<p>For businesses, these discovered patterns offer a roadmap for
+optimizing inventory, refining product placements, and enhancing overall
+store strategies. The data-driven approach allows retailers to tailor
+their offerings, promotions, and layouts, creating a more efficient and
+personalized shopping experience.</p>
+<p>This project underscores the profound impact of data analytics in the
+retail sector, advocating for a shift towards customer-centric models.
+By anticipating and adapting to evolving consumer preferences,
+businesses can not only survive but thrive in a competitive market,
+fostering growth and loyalty.</p>
+<p>This alignment confirms the applicability of association rule mining
+in recommender systems. By identifying item pairs with positive
+relationships, targeted recommendations can be generated to:</p>
+<ul>
+<li>Boost sales: Encourage customers to purchase additional items based
+on their past behavior. Expand customer horizons: Introduce them to new
+products they may not have considered before, potentially leading to
+increased satisfaction and loyalty.</li>
+<li>While the initial findings focus on familiar co-purchases, further
+exploration beyond category boundaries could unearth surprising and
+valuable combinations.</li>
+</ul>
+<p>Overall, the analysis offers a data-driven basis for strategic
+decision-making in marketing and content management projects, matching
+products to viewer preferences to improve satisfaction and
+engagement.</p>
 </div>
 
 
